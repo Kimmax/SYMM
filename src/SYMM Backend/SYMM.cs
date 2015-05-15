@@ -7,5 +7,9 @@ namespace SYMM_Backend
 {
     public class SYMM
     {
+        public SYMM()
+        {
+
+        }
     }
 }
