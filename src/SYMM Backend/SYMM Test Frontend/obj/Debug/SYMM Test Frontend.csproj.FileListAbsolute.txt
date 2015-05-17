@@ -1,2 +1,41 @@
-C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\obj\Debug\SYMM Test Frontend.csprojResolveAssemblyReference.cache
 C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\SYMM Test Frontend.exe.config
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\SYMM Test Frontend.exe
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\SYMM Test Frontend.pdb
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\SYMM Backend.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.IO.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.WebRequest.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Runtime.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Threading.Tasks.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.YouTube.v3.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.Core.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Zlib.Portable.dll
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\SYMM Backend.pdb
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.IO.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Net.Http.WebRequest.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Runtime.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\System.Threading.Tasks.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.YouTube.v3.pdb
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.YouTube.v3.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.pdb
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.Core.pdb
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Google.Apis.Core.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\Zlib.Portable.xml
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\obj\Debug\SYMM Test Frontend.csprojResolveAssemblyReference.cache
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\obj\Debug\SYMM Test Frontend.exe
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\obj\Debug\SYMM Test Frontend.pdb

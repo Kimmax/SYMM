@@ -19,7 +19,11 @@ namespace SYMM_Backend
         {
             this._APIKey = APIKey;
             this.YouTubeHandler = new YoutubeAPIHandler(this.APIKey);
-            YouTubeHandler.LoadChannelVideos();
+        }
+
+        public string LoadVideosFromChannel(string channelName)
+        {
+            return YouTubeHandler.LoadChannelVideos(channelName);
         }
     }
 }

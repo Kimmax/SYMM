@@ -1,8 +1,8 @@
-﻿using SYMM_Backend;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SYMM_Backend;
 
 namespace SYMM_Test_Frontend
 {
@@ -12,6 +12,9 @@ namespace SYMM_Test_Frontend
         {
             Base myBase = new Base();
             myBase.Run("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
+            Console.WriteLine("--------------------------------------------------------------");
+            Console.WriteLine("Press enter to exit");
+            Console.ReadLine();
         }
     }
 
@@ -22,7 +25,7 @@ namespace SYMM_Test_Frontend
         public void Run(string APIKey)
         {
             backend = new SYMMHandler(APIKey);
-
+            Console.WriteLine(backend.LoadVideosFromChannel("OfficialTrapCity"));
         }
     }
 }

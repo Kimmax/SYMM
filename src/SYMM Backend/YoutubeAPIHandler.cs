@@ -28,17 +28,29 @@ namespace SYMM_Backend
             });
         }
 
-        public void LoadChannelVideos(string nextPageToken = null)
+        public string LoadChannelVideos(string channelName, string nextPageToken = null)
         {
-            ChannelsResource.ListRequest channelVidRequest = YouTubeService.Channels.List("snippet");
-            channelVidRequest.Id = "OfficialTrapCity";
-            channelVidRequest.MaxResults = 50;
+            // Load the 'uploaded' playlist
+            ChannelsResource.ListRequest channelPlaylistIDReq = YouTubeService.Channels.List("contentDetails");
+            channelPlaylistIDReq.ForUsername = channelName;
+            ChannelListResponse channelPlaylistIDResp = channelPlaylistIDReq.Execute();
 
-            if (nextPageToken != null)
-                channelVidRequest.PageToken = nextPageToken;
+            string channelUploadsPlaylistID = channelPlaylistIDResp.Items[0].ContentDetails.RelatedPlaylists.Uploads;
 
-            ChannelListResponse channelVideos = channelVidRequest.Execute();
-            
+            // Load Uploaded Playlist
+            PlaylistItemsResource.ListRequest playlistVideosReq = YouTubeService.PlaylistItems.List("snippet,id");
+            playlistVideosReq.PlaylistId = channelUploadsPlaylistID;
+            playlistVideosReq.MaxResults = 50;
+            PlaylistItemListResponse playlistVideosRes = playlistVideosReq.Execute();
+
+            // Finnaly grab the video IDs
+            string videoIDs = "";
+            foreach(PlaylistItem videoItem in playlistVideosRes.Items)
+            {
+                videoIDs += videoItem.Snippet.Title + ": " + videoItem.Id + "\n";
+            }
+
+            return videoIDs;
         }
     }
 }
