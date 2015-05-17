@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Backend", "SYMM Backend.csproj", "{48943E3B-8E97-4A65-BBE5-2C885CBAA136}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Test Frontend", "SYMM Test Frontend\SYMM Test Frontend.csproj", "{D01E1DB1-2ED6-4D4E-BAAF-847260B2D390}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D01E1DB1-2ED6-4D4E-BAAF-847260B2D390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D01E1DB1-2ED6-4D4E-BAAF-847260B2D390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D01E1DB1-2ED6-4D4E-BAAF-847260B2D390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D01E1DB1-2ED6-4D4E-BAAF-847260B2D390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

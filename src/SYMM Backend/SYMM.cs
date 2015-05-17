@@ -5,11 +5,21 @@ using System.Text;
 
 namespace SYMM_Backend
 {
-    public class SYMM
+    public class SYMMHandler
     {
-        public SYMM()
-        {
+        private readonly YoutubeAPIHandler YouTubeHandler;
 
+        private readonly string _APIKey;
+        public string APIKey
+        {
+            get { return _APIKey; }
+        }
+
+        public SYMMHandler(string APIKey)
+        {
+            this._APIKey = APIKey;
+            this.YouTubeHandler = new YoutubeAPIHandler(this.APIKey);
+            YouTubeHandler.LoadChannelVideos();
         }
     }
 }

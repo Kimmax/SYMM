@@ -1,0 +1,2 @@
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\obj\Debug\SYMM Test Frontend.csprojResolveAssemblyReference.cache
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\SYMM Test Frontend\bin\Debug\SYMM Test Frontend.exe.config
