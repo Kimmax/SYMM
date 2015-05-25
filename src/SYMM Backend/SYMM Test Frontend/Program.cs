@@ -25,7 +25,13 @@ namespace SYMM_Test_Frontend
         public void Run(string APIKey)
         {
             backend = new SYMMHandler(APIKey);
-            Console.WriteLine(backend.LoadVideosFromChannel("OfficialTrapCity"));
+            backend.LoadVideosFromChannel("OfficialTrapCity").ForEach(video => 
+            {
+                Console.WriteLine("Found Video at POS: " + video.PlayListPos);
+                Console.WriteLine("Title: " + video.VideoTitle);
+                Console.WriteLine("Published at: " + video.PublishDate);
+                Console.WriteLine("%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%");
+            });
         }
     }
 }

@@ -21,7 +21,7 @@ namespace SYMM_Backend
             this.YouTubeHandler = new YoutubeAPIHandler(this.APIKey);
         }
 
-        public string LoadVideosFromChannel(string channelName)
+        public List<YouTubeVideo> LoadVideosFromChannel(string channelName)
         {
             return YouTubeHandler.LoadChannelVideos(channelName);
         }

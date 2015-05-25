@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using System.Collections.Generic;
 
 namespace SYMM_Backend
 {
@@ -28,7 +29,7 @@ namespace SYMM_Backend
             });
         }
 
-        public string LoadChannelVideos(string channelName, string nextPageToken = null)
+        public List<YouTubeVideo> LoadChannelVideos(string channelName, List<YouTubeVideo> videos = null, string nextPageToken = null)
         {
             // Load the 'uploaded' playlist
             ChannelsResource.ListRequest channelPlaylistIDReq = YouTubeService.Channels.List("contentDetails");
@@ -40,17 +41,25 @@ namespace SYMM_Backend
             // Load Uploaded Playlist
             PlaylistItemsResource.ListRequest playlistVideosReq = YouTubeService.PlaylistItems.List("snippet,id");
             playlistVideosReq.PlaylistId = channelUploadsPlaylistID;
+            playlistVideosReq.PageToken = nextPageToken;
             playlistVideosReq.MaxResults = 50;
             PlaylistItemListResponse playlistVideosRes = playlistVideosReq.Execute();
 
             // Finnaly grab the video IDs
-            string videoIDs = "";
+            if(videos == null)
+                videos = videos = new List<YouTubeVideo>();
+
+            // Populate video list
             foreach(PlaylistItem videoItem in playlistVideosRes.Items)
             {
-                videoIDs += videoItem.Snippet.Title + ": " + videoItem.Id + "\n";
+                videos.Add(new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.High.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position));
             }
 
-            return videoIDs;
+            // Check if we have more to grab
+            if (!string.IsNullOrEmpty(playlistVideosRes.NextPageToken))
+                videos = LoadChannelVideos(channelName, videos, playlistVideosRes.NextPageToken);
+
+            return videos;
         }
     }
 }
