@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SYMM_Backend;
+using System.Threading;
 
 namespace SYMM_Test_Frontend
 {
@@ -25,14 +26,77 @@ namespace SYMM_Test_Frontend
         public void Run(string APIKey)
         {
             backend = new SYMMHandler(APIKey);
-            backend.LoadVideosFromChannel("OfficialTrapCity").ForEach(video => 
+            List<YouTubeVideo> videoList = backend.LoadVideosFromChannel("OfficialTrapCity");
+
+            bool done1 = false, done2 = false;
+
+            Console.WriteLine("Download first two video and extract their audios.");
+            new Thread(() =>
             {
-                Console.WriteLine("Found Video at POS: " + video.PlayListPos);
-                Console.WriteLine("Title: " + video.VideoTitle);
-                Console.WriteLine("Published at: " + video.PublishDate);
-                Console.WriteLine("Video ID: " + video.VideoWatchID);
-                Console.WriteLine("%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%");
-            });
+                VideoDownloader downloader = new VideoDownloader();
+
+                int lastPrgs = -1;
+
+                downloader.DownloadProgressChanged += (sender, args) =>
+                {
+                    if (lastPrgs != (int)args.ProgressPercentage)
+                    {
+                        Console.WriteLine("Downloading " + videoList[videoList.Count -1].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
+                        lastPrgs = (int)args.ProgressPercentage;
+                    }
+                };
+
+                lastPrgs = -1;
+
+                downloader.AudioExtractionProgressChanged += (sender, args) =>
+                {
+                    if (lastPrgs != (int)args.ProgressPercentage)
+                    {
+                        Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 1].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
+                       lastPrgs = (int)args.ProgressPercentage;
+                    }
+                };
+
+                downloader.DownloadVideo(videoList[videoList.Count - 1].VideoWatchID, @"C:\Users\Kim\Desktop");
+                done1 = true;
+            }).Start();
+
+            new Thread(() =>
+            {
+                VideoDownloader downloader = new VideoDownloader();
+
+                int lastPrgs = -1;
+
+                downloader.DownloadProgressChanged += (sender, args) =>
+                {
+                    if (lastPrgs != (int)args.ProgressPercentage)
+                    {
+                        Console.WriteLine("Downloading " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
+                        lastPrgs = (int)args.ProgressPercentage;
+                    }
+                };
+
+                lastPrgs = -1;
+
+                downloader.AudioExtractionProgressChanged += (sender, args) =>
+                {
+                    if (lastPrgs != (int)args.ProgressPercentage)
+                    {
+                        Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
+                        lastPrgs = (int)args.ProgressPercentage;
+                    }
+                };
+
+                downloader.DownloadVideo(videoList[videoList.Count - 2].VideoWatchID, @"C:\Users\Kim\Desktop");
+                done2 = true;
+            }).Start();
+
+            while(!done1 || !done2)
+            {
+                Thread.Sleep(300);
+            }
+
+            Console.WriteLine("Downloading and extraction finshed!");
         }
     }
 }
