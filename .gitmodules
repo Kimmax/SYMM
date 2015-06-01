@@ -1,0 +1,3 @@
+[submodule "lib/YoutubeExtractor"]
+	path = lib/YoutubeExtractor
+	url = https://github.com/flagbug/YoutubeExtractor.git
