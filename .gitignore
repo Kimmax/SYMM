@@ -6,7 +6,9 @@
  
 # Standard VS.NET and ReSharper Foo
 obj
+obj/*
 bin
+bin/*
 *.csproj.user
 *ReSharper*
 *resharper*
