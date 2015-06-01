@@ -48,3 +48,4 @@ C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\bin\Debug\Zlib
 C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\obj\Debug\SYMM Backend.csproj.App.config
 C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\obj\Debug\SYMM Backend.dll
 C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\obj\Debug\SYMM Backend.pdb
+C:\Users\Kim\Documents\coding\C#\RandomShit\SYMM\src\SYMM Backend\obj\Debug\SYMM Backend.csprojResolveAssemblyReference.cache
