@@ -12,7 +12,7 @@ namespace SYMM_Test_Frontend
         {
             Base myBase = new Base();
             myBase.Run("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
-            Console.WriteLine("--------------------------------------------------------------");
+            Console.WriteLine("\n--------------------------------------------------------------\n");
             Console.WriteLine("Press enter to exit");
             Console.ReadLine();
         }
@@ -30,6 +30,7 @@ namespace SYMM_Test_Frontend
                 Console.WriteLine("Found Video at POS: " + video.PlayListPos);
                 Console.WriteLine("Title: " + video.VideoTitle);
                 Console.WriteLine("Published at: " + video.PublishDate);
+                Console.WriteLine("Video ID: " + video.VideoWatchID);
                 Console.WriteLine("%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%");
             });
         }
