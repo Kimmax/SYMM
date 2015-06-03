@@ -56,6 +56,9 @@
     <Compile Include="VideoInfoListItem.xaml.cs">
       <DependentUpon>VideoInfoListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VideoItemList.xaml.cs">
+      <DependentUpon>VideoItemList.xaml</DependentUpon>
+    </Compile>
     <Page Include="SYMM.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +72,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="VideoInfoListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VideoItemList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="thumbPlaceholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SYMM Backend\SYMM Backend.csproj">
+      <Project>{48943e3b-8e97-4a65-bbe5-2c885cbaa136}</Project>
+      <Name>SYMM Backend</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

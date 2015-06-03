@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SYMM_Backend;
 
 namespace SYMM_Frontend_WPF
 {
@@ -19,9 +20,35 @@ namespace SYMM_Frontend_WPF
     /// </summary>
     public partial class VideoInfoListItem : UserControl
     {
-        public VideoInfoListItem()
+        private YouTubeVideo _video;
+
+        public YouTubeVideo Video
+        {
+            get { return _video; }
+            private set { _video = value; }
+        }
+
+        public VideoInfoListItem(YouTubeVideo video)
         {
             InitializeComponent();
+            this._video = Video;
+            this.txtTitle.Content = Video.VideoTitle;
+            this.txtChannel.Content = Video.ChannelTitle;
+
+            SetThumb(this.Video.ThumbURL);
+        }
+
+        public void SetThumb(string url)
+        {
+            var image = new Image();
+            var fullFilePath = url;
+
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
+            bitmap.EndInit();
+
+            this.imgThumb.Source = bitmap;
         }
     }
 }
