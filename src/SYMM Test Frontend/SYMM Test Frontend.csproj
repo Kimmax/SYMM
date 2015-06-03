@@ -58,12 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SYMM Backend\SYMM Backend.csproj">
-      <Project>{48943e3b-8e97-4a65-bbe5-2c885cbaa136}</Project>
-      <Name>SYMM Backend</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -128,6 +122,12 @@
     <Reference Include="System.Threading.Tasks">
       <HintPath>packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SYMM Backend\SYMM Backend.csproj">
+      <Project>{48943e3b-8e97-4a65-bbe5-2c885cbaa136}</Project>
+      <Name>SYMM Backend</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
