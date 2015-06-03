@@ -11,7 +11,7 @@
         </LinearGradientBrush>
     </UserControl.Background>
     <Grid>
-        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="150"/>
+        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="150" Source="thumbPlaceholder.png"/>
         <Label x:Name="txtTitle" Content="ThisIsARealCoolTitleBrah" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top"/>
         <Label x:Name="txtLenght" Content="32:12min" HorizontalAlignment="Right" Margin="0,36,10,0" VerticalAlignment="Top"/>
         <Label x:Name="txtChannel" Content="SomeAwesomeChannel" HorizontalAlignment="Right" Margin="0,62,10,0" VerticalAlignment="Top"/>
