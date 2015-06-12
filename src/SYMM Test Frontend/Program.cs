@@ -33,7 +33,7 @@ namespace SYMM_Test_Frontend
             Console.WriteLine("Download first video and extract the audio.");
             new Thread(() =>
             {
-                VideoDownloader downloader = new VideoDownloader();
+                VideoDownloader downloader = new VideoDownloader(videoList[videoList.Count - 1]);
 
                 int lastPrgs = -1;
 
@@ -57,7 +57,7 @@ namespace SYMM_Test_Frontend
                     }
                 };
 
-                downloader.DownloadVideo(videoList[videoList.Count - 1], @"C:\Users\Kim\Desktop");
+                downloader.DownloadVideo(@"C:\Users\Kim\Desktop");
                 done1 = true;
             }).Start();
 
