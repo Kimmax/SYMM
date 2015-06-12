@@ -65,26 +65,14 @@ namespace SYMM_Test_Frontend
             {
                 VideoDownloader downloader = new VideoDownloader();
 
-                int lastPrgs = -1;
-
                 downloader.DownloadProgressChanged += (sender, args) =>
                 {
-                    if (lastPrgs != (int)args.ProgressPercentage)
-                    {
-                        Console.WriteLine("Downloading " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
-                        lastPrgs = (int)args.ProgressPercentage;
-                    }
+                    Console.WriteLine("Downloading " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
                 };
-
-                lastPrgs = -1;
 
                 downloader.AudioExtractionProgressChanged += (sender, args) =>
                 {
-                    if (lastPrgs != (int)args.ProgressPercentage)
-                    {
-                        Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
-                        lastPrgs = (int)args.ProgressPercentage;
-                    }
+                    Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
                 };
 
                 downloader.DownloadVideo(videoList[videoList.Count - 2].VideoWatchID, @"C:\Users\Kim\Desktop");

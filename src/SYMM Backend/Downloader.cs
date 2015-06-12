@@ -46,11 +46,30 @@ namespace SYMM_Backend
              */
             var audioDownloader = new AudioDownloader(video, Path.Combine(dest, video.Title + video.AudioExtension));
 
+            // Track the amount of progress we had the last time, so we can prevent multiple calls without change
+            int lastPrgs = -1;
+
             // Register the progress events. We treat the download progress as 85% of the progress and the extraction progress only as 15% of the progress,
             // because the download will take much longer than the audio extraction.
-            audioDownloader.DownloadProgressChanged += (sender, args) => this.DownloadProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
-            audioDownloader.AudioExtractionProgressChanged += (sender, args) => this.AudioExtractionProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+            audioDownloader.DownloadProgressChanged += (sender, args) =>
+            {
+                if (lastPrgs != (int)args.ProgressPercentage)
+                {
+                    this.DownloadProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+                    lastPrgs = (int)args.ProgressPercentage;
+                }
+            };
 
+            lastPrgs = -1;
+
+            audioDownloader.AudioExtractionProgressChanged += (sender, args) =>
+            {
+                if (lastPrgs != (int)args.ProgressPercentage)
+                {
+                    this.AudioExtractionProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+                    lastPrgs = (int)args.ProgressPercentage;
+                }
+            };
             /*
              * Execute the audio downloader.
              * For GUI applications note, that this method runs synchronously.
