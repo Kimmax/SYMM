@@ -28,7 +28,7 @@ namespace SYMM_Test_Frontend
             backend = new SYMMHandler(APIKey);
             List<YouTubeVideo> videoList = backend.LoadVideosFromChannel("OfficialTrapCity");
 
-            bool done1 = false, done2 = false;
+            bool done1 = false;
 
             Console.WriteLine("Download first two video and extract their audios.");
             new Thread(() =>
@@ -61,25 +61,7 @@ namespace SYMM_Test_Frontend
                 done1 = true;
             }).Start();
 
-            new Thread(() =>
-            {
-                VideoDownloader downloader = new VideoDownloader();
-
-                downloader.DownloadProgressChanged += (sender, args) =>
-                {
-                    Console.WriteLine("Downloading " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
-                };
-
-                downloader.AudioExtractionProgressChanged += (sender, args) =>
-                {
-                    Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 2].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
-                };
-
-                downloader.DownloadVideo(videoList[videoList.Count - 2].VideoWatchID, @"C:\Users\Kim\Desktop");
-                done2 = true;
-            }).Start();
-
-            while(!done1 || !done2)
+            while(!done1)
             {
                 Thread.Sleep(300);
             }
