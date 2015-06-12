@@ -22,53 +22,55 @@ namespace SYMM_Test_Frontend
     class Base
     {
         SYMMHandler backend;
+        bool exit = false;
+
+        private int work = 0;
+        private string APIKey;
 
         public void Run(string APIKey)
         {
-            backend = new SYMMHandler(APIKey);
-            List<YouTubeVideo> videoList = backend.LoadVideosFromChannel("OfficialTrapCity");
+            this.APIKey = APIKey;
 
-            bool done1 = false;
+            DoWork();
 
-            Console.WriteLine("Download first video and extract the audio.");
-            new Thread(() =>
-            {
-                VideoDownloader downloader = new VideoDownloader(videoList[videoList.Count - 1]);
-
-                int lastPrgs = -1;
-
-                downloader.DownloadProgressChanged += (sender, args) =>
-                {
-                    if (lastPrgs != (int)args.ProgressPercentage)
-                    {
-                        Console.WriteLine("Downloading " + videoList[videoList.Count -1].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
-                        lastPrgs = (int)args.ProgressPercentage;
-                    }
-                };
-
-                lastPrgs = -1;
-
-                downloader.AudioExtractionProgressChanged += (sender, args) =>
-                {
-                    if (lastPrgs != (int)args.ProgressPercentage)
-                    {
-                        Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 1].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
-                       lastPrgs = (int)args.ProgressPercentage;
-                    }
-                };
-
-                downloader.DownloadVideo(@"C:\Users\Kim\Desktop");
-                done1 = true;
-            }).Start();
-
-            while(!done1)
+            while(!exit)
             {
                 Thread.Sleep(300);
             }
+        }
 
-            Console.WriteLine("\n--------------------------------------------------------------\n");
-            Console.WriteLine("Downloading and extraction finshed!");
+        public void DoWork()
+        {
+            backend = new SYMMHandler(this.APIKey);
+            List<YouTubeVideo> videoList = backend.LoadVideosFromChannel("OfficialTrapCity");
 
+            Console.WriteLine("Download first video and extract the audio.");
+
+            VideoDownloader downloader = new VideoDownloader(videoList[videoList.Count - 1]);
+            work++;
+
+            downloader.DownloadProgressChanged += (sender, args) =>
+            {
+                    Console.WriteLine("Downloading " + videoList[videoList.Count -1].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
+            };
+
+            downloader.AudioExtractionProgressChanged += (sender, args) =>
+            {
+                Console.WriteLine("Extracting audio for " + videoList[videoList.Count - 1].VideoTitle + " is " + (int)args.ProgressPercentage + "% done");
+            };
+
+            downloader.VideoDownloadComplete += (sender, args) =>
+            {
+                Console.WriteLine("\n--------------------------------------------------------------\n");
+                Console.WriteLine("Downloading and extraction of Video '" + args.Video.VideoTitle + "' finished");
+                
+                work--;
+
+                if (work == 0)
+                    exit = true;
+            };
+
+            downloader.DownloadVideo(@"C:\Users\Kim\Desktop");
         }
     }
 }
