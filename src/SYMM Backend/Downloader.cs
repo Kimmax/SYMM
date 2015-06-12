@@ -11,11 +11,24 @@ namespace SYMM_Backend
     {
         public event EventHandler<ProgressEventArgs> DownloadProgressChanged;
         public event EventHandler<ProgressEventArgs> AudioExtractionProgressChanged;
+        public event EventHandler<VideoDownloadCompleteEventArgs> VideoDownloadComplete;
 
-        public void DownloadVideo(string watchID, string dest)
+        private readonly YouTubeVideo video;
+
+        public YouTubeVideo Video
+        {
+            get { return video; }
+        }
+
+        public VideoDownloader(YouTubeVideo video)
+        {
+            this.video = video;
+        }
+
+        public void DownloadVideo(string dest)
         {
             // Yotube url
-            string link = "http://youtube.com/watch?v=" + watchID;
+            string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
 
             /*
              * Get the available video formats.
@@ -55,7 +68,9 @@ namespace SYMM_Backend
             {
                 if (lastPrgs != (int)args.ProgressPercentage)
                 {
-                    this.DownloadProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+                    if(this.DownloadProgressChanged != null)
+                        this.DownloadProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+
                     lastPrgs = (int)args.ProgressPercentage;
                 }
             };
@@ -66,10 +81,19 @@ namespace SYMM_Backend
             {
                 if (lastPrgs != (int)args.ProgressPercentage)
                 {
-                    this.AudioExtractionProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+                    if(this.AudioExtractionProgressChanged != null)
+                        this.AudioExtractionProgressChanged(this, new SYMM_Backend.ProgressEventArgs(args.ProgressPercentage));
+
                     lastPrgs = (int)args.ProgressPercentage;
                 }
             };
+
+            audioDownloader.DownloadFinished += (sender, args) =>
+            {
+                if(this.VideoDownloadComplete != null)
+                    this.VideoDownloadComplete(this, new VideoDownloadCompleteEventArgs(this.Video));
+            };
+
             /*
              * Execute the audio downloader.
              * For GUI applications note, that this method runs synchronously.

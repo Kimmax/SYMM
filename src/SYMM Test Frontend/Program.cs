@@ -57,7 +57,7 @@ namespace SYMM_Test_Frontend
                     }
                 };
 
-                downloader.DownloadVideo(videoList[videoList.Count - 1].VideoWatchID, @"C:\Users\Kim\Desktop");
+                downloader.DownloadVideo(videoList[videoList.Count - 1], @"C:\Users\Kim\Desktop");
                 done1 = true;
             }).Start();
 
