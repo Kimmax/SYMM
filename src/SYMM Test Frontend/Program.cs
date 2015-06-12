@@ -30,7 +30,7 @@ namespace SYMM_Test_Frontend
 
             bool done1 = false;
 
-            Console.WriteLine("Download first two video and extract their audios.");
+            Console.WriteLine("Download first video and extract the audio.");
             new Thread(() =>
             {
                 VideoDownloader downloader = new VideoDownloader();
@@ -66,7 +66,9 @@ namespace SYMM_Test_Frontend
                 Thread.Sleep(300);
             }
 
+            Console.WriteLine("\n--------------------------------------------------------------\n");
             Console.WriteLine("Downloading and extraction finshed!");
+
         }
     }
 }
