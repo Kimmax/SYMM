@@ -13,7 +13,7 @@
     <Grid>
         <Image x:Name="imgThumb" HorizontalAlignment="Left" Height="67.5" VerticalAlignment="Top" Width="90" Source="thumbPlaceholder.png" Margin="0,0,0,-102"/>
         <Label x:Name="txtTitle" Content="ThisIsARealCoolTitleBrah" HorizontalAlignment="Right" Margin="0,2,10,0" VerticalAlignment="Top"/>
-        <Label x:Name="txtLenght" Content="32:12min" HorizontalAlignment="Right" Margin="0,22,10,0" VerticalAlignment="Top"/>
+        <Label x:Name="txtLenght" Content="Not available" HorizontalAlignment="Right" Margin="0,22,10,0" VerticalAlignment="Top"/>
         <Label x:Name="txtChannel" Content="SomeAwesomeChannel" HorizontalAlignment="Right" Margin="0,42,10,0" VerticalAlignment="Top"/>
 
     </Grid>
