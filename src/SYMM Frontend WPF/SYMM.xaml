@@ -17,13 +17,17 @@
                     </Grid.RowDefinitions>
 
                     <Button Content="Button" HorizontalAlignment="Right" Margin="639,5,5,5" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-                    <local:VideoItemList Margin="0" Width="Auto"/>
+                    <local:VideoItemList x:Name="LoadedVideoList" Margin="0" Width="Auto"/>
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
-        <Menu/>
+        <Menu>
+            <MenuItem Header="URL" Margin="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <MenuItem  x:Name="menuURLLoadChannel" Header="LoadURL" Click="menuURLLoadChannel_Click"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

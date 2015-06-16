@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SYMM_Backend;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,15 +27,16 @@ namespace SYMM_Frontend_WPF
             InitializeComponent();
         }
 
-        public void AddVideoItem(VideoInfoListItem video)
+        public void AddVideoItem(YouTubeVideo video)
         {
-            videoItems.Add(video);
-            this.videoInfoPanel.Children.Add(video);
+            VideoInfoListItem videoitem = new VideoInfoListItem(video);
+            videoItems.Add(videoitem);
+            this.videoInfoPanel.Children.Add(videoitem);
         }
 
-        public void RemoveVideoItem(VideoInfoListItem video)
+        public void RemoveVideoItem(YouTubeVideo video)
         {
-            this.videoInfoPanel.Children.Remove(video);
+            this.videoInfoPanel.Children.Remove(new VideoInfoListItem(video));
         }
     }
 }

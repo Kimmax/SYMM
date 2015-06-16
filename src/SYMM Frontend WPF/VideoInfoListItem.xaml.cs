@@ -31,7 +31,7 @@ namespace SYMM_Frontend_WPF
         public VideoInfoListItem(YouTubeVideo video)
         {
             InitializeComponent();
-            this._video = Video;
+            this._video = video;
             this.txtTitle.Content = Video.VideoTitle;
             this.txtChannel.Content = Video.ChannelTitle;
 

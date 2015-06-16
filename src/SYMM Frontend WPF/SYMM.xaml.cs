@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
+using SYMM_Backend;
 
 namespace SYMM_Frontend_WPF
 {
@@ -19,9 +21,38 @@ namespace SYMM_Frontend_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<YouTubeVideo> loadedVideos = new List<YouTubeVideo>();
+        SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        void PopulateUI()
+        {
+            loadedVideos.ForEach(video =>
+            {
+                this.LoadedVideoList.AddVideoItem(video);
+            });
+        }
+
+        void LoadFromChannel(string channel)
+        {
+            ManualResetEvent isContentLoadedResetEvent = new ManualResetEvent(false);
+            new Thread(() =>
+            {
+                this.loadedVideos = downloader.LoadVideosFromChannel(channel);
+                isContentLoadedResetEvent.Set();
+            }).Start();
+
+            isContentLoadedResetEvent.WaitOne();
+            PopulateUI();
+        }
+
+        private void menuURLLoadChannel_Click(object sender, RoutedEventArgs e)
+        {
+            LoadFromChannel("OfficialTrapCity");
         }
     }
 }
