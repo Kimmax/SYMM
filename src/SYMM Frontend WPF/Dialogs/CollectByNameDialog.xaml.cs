@@ -21,6 +21,11 @@ namespace SYMM_Frontend_WPF.Dialogs
     /// </summary>
     public partial class CollectByNameDialog : ModernDialog
     {
+        public string ChannelName
+        {
+            get { return this.txtChannelName.Text; }
+        }
+
         public CollectByNameDialog()
         {
             InitializeComponent();

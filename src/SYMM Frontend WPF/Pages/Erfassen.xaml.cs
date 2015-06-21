@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SYMM_Frontend_WPF.Dialogs;
+using FirstFloor.ModernUI.Windows;
 
 namespace SYMM_Frontend_WPF.Pages
 {
     /// <summary>
     /// Interaktionslogik für Erfassen.xaml
     /// </summary>
-    public partial class Erfassen : UserControl
+    public partial class Erfassen : Page, IContent 
     {
         public Erfassen()
         {
@@ -29,7 +30,27 @@ namespace SYMM_Frontend_WPF.Pages
         private void btnCollectByChanname_Click(object sender, RoutedEventArgs e)
         {
             CollectByNameDialog dialog = new CollectByNameDialog();
-            dialog.ShowDialog();
+            var result = dialog.ShowDialog();
+
+            string url = "/Pages/Downloaden.xaml?method=channelname&extra=" + dialog.ChannelName;
+            BBCodeBlock bs = new BBCodeBlock();
+            bs.LinkNavigator.Navigate(new Uri(url, UriKind.Relative), this);
+        }
+
+        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
         }
     }
 }

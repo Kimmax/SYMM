@@ -98,18 +98,25 @@
     <Compile Include="Dialogs\CollectByNameDialog.xaml.cs">
       <DependentUpon>CollectByNameDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Downloaden.xaml.cs">
+      <DependentUpon>Downloaden.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Erfassen.xaml.cs">
       <DependentUpon>Erfassen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VideoInfoListItem.xaml.cs">
+    <Compile Include="Custom Controls\VideoInfoListItem.xaml.cs">
       <DependentUpon>VideoInfoListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VideoItemList.xaml.cs">
+    <Compile Include="Custom Controls\VideoItemList.xaml.cs">
       <DependentUpon>VideoItemList.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\CollectByNameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Downloaden.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Erfassen.xaml">
       <SubType>Designer</SubType>
@@ -127,11 +134,11 @@
       <DependentUpon>SYMM.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="VideoInfoListItem.xaml">
+    <Page Include="Custom Controls\VideoInfoListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VideoItemList.xaml">
+    <Page Include="Custom Controls\VideoItemList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

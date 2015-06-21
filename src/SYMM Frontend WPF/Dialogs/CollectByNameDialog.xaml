@@ -13,7 +13,7 @@
         <Border VerticalAlignment="Center" Margin="0">
             <Grid>
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Write the name of the channel in the box below:" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="0,21,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300"/>
+                <TextBox x:Name="txtChannelName" HorizontalAlignment="Left" Height="23" Margin="0,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
             </Grid>
         </Border>
     </Grid>

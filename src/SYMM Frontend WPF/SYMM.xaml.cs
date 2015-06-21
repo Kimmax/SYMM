@@ -22,33 +22,6 @@ namespace SYMM_Frontend_WPF
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        List<YouTubeVideo> loadedVideos = new List<YouTubeVideo>();
-        SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
 
-        void PopulateUI()
-        {
-            loadedVideos.ForEach(video =>
-            {
-                //this.LoadedVideoList.AddVideoItem(video);
-            });
-        }
-
-        void LoadFromChannel(string channel)
-        {
-            ManualResetEvent isContentLoadedResetEvent = new ManualResetEvent(false);
-            new Thread(() =>
-            {
-                this.loadedVideos = downloader.LoadVideosFromChannel(channel);
-                isContentLoadedResetEvent.Set();
-            }).Start();
-
-            isContentLoadedResetEvent.WaitOne();
-            PopulateUI();
-        }
-
-        private void menuURLLoadChannel_Click(object sender, RoutedEventArgs e)
-        {
-            LoadFromChannel("OfficialTrapCity");
-        }
     }
 }
