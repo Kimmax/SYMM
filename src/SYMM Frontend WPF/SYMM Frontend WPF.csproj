@@ -95,12 +95,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\CollectByNameDialog.xaml.cs">
+      <DependentUpon>CollectByNameDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Erfassen.xaml.cs">
+      <DependentUpon>Erfassen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VideoInfoListItem.xaml.cs">
       <DependentUpon>VideoInfoListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="VideoItemList.xaml.cs">
       <DependentUpon>VideoItemList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\CollectByNameDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Erfassen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SYMM.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -161,6 +175,7 @@
       <Name>SYMM Backend</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

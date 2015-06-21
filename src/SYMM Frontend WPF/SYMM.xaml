@@ -3,35 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mui="http://firstfloorsoftware.com/ModernUI"
     xmlns:local="clr-namespace:SYMM_Frontend_WPF"
-    Title="MainWindow" Height="469" Width="742">
-    <Grid Margin="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="137*"/>
-        </Grid.RowDefinitions>
-        <TabControl Grid.Row="1">
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="33"/>
-                    </Grid.RowDefinitions>
-
-                    <Button Content="Button" HorizontalAlignment="Right" Margin="639,5,5,5" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-                    <local:VideoItemList x:Name="LoadedVideoList" Margin="0" Width="Auto"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
-        <Menu>
-            <MenuItem Header="URL" Margin="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-                <MenuItem  x:Name="menuURLLoadChannel" Header="LoadURL"/>
-            </MenuItem>
-        </Menu>
-    </Grid>
+    Title="MainWindow" Height="550" Width="900" ContentSource="/Pages/Erfassen.xaml" WindowStartupLocation="CenterScreen" >
+    
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="Simple YouTube Music Manager" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Erfassen" Source="/Pages/Erfassen.xaml" />
+                <mui:Link DisplayName="Downloaden" />
+                <mui:Link DisplayName="Managen" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
 </mui:ModernWindow>
