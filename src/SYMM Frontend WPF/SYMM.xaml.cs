@@ -13,27 +13,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using SYMM_Backend;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace SYMM_Frontend_WPF
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : ModernWindow
     {
         List<YouTubeVideo> loadedVideos = new List<YouTubeVideo>();
         SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
-
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
 
         void PopulateUI()
         {
             loadedVideos.ForEach(video =>
             {
-                this.LoadedVideoList.AddVideoItem(video);
+                //this.LoadedVideoList.AddVideoItem(video);
             });
         }
 
