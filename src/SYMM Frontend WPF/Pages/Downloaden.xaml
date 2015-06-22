@@ -1,4 +1,4 @@
-﻿<Page x:Class="SYMM_Frontend_WPF.Pages.Downloaden"
+﻿<Page x:Name="page" x:Class="SYMM_Frontend_WPF.Pages.Downloaden"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,8 +15,16 @@
             <RowDefinition/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <local:VideoItemList x:Name="videoList" Margin="0"/>
-        <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Right" Margin="0,3,16,3" VerticalAlignment="Center" Grid.Row="1" Height="26" Width="88"/>
-        <TextBlock x:Name="labNumVids" TextWrapping="Wrap" Text="Total Number of videos:" VerticalAlignment="Center" Margin="16,0,0,0" Height="16" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="131" Grid.Row="1"/>
+        <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Right" Margin="0,3,16,3" VerticalAlignment="Center" Grid.Row="1" Height="26"/>
+        <TextBlock Text="{Binding TotalNumberVideos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='Total number of videos: {0}'}" x:Name="labNumVids" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,0,0" Height="16" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="131" Grid.Row="1"/>
+        <ScrollViewer x:Name="infoScroller" Margin="0" ScrollChanged="infoScroller_ScrollChanged">
+            <ItemsControl ItemsSource="{Binding LoadedVideos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="videoInfoList">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>
