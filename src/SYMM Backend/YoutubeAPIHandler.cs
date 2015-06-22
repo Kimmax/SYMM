@@ -58,14 +58,18 @@ namespace SYMM_Backend
             {
                 YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.High.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
                 videos.Add(loadedVideo);
-                OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(loadedVideo));
+
+                if(OnVideoInformationLoaded != null)
+                    OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(loadedVideo));
             }
 
             // Check if we have more to grab
             if (!string.IsNullOrEmpty(playlistVideosRes.NextPageToken))
                 videos = LoadChannelVideos(channelName, videos, playlistVideosRes.NextPageToken);
 
-            OnAllVideoInformationLoaded(this, new AllVideoInformationLoadedEventArgs(videos));
+            if(OnAllVideoInformationLoaded != null)
+                OnAllVideoInformationLoaded(this, new AllVideoInformationLoadedEventArgs(videos));
+
             return videos;
         }
     }

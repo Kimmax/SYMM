@@ -16,6 +16,7 @@ using SYMM_Frontend_WPF.Dialogs;
 using SYMM_Backend;
 using System.Threading;
 using FirstFloor.ModernUI.Windows;
+using System.Windows.Threading;
 
 namespace SYMM_Frontend_WPF.Pages
 {
@@ -33,28 +34,23 @@ namespace SYMM_Frontend_WPF.Pages
         SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
         int totalNumVideos = 0;
 
-        void PopulateUI()
-        {
-            totalNumVideos = 0;
-            loadedVideos.ForEach(video =>
-            {
-                this.videoList.AddVideoItem(video);
-                totalNumVideos++;
-                labNumberVids.Text = totalNumVideos.ToString();
-            });
-        }
-
         public void LoadByChannelName(string channel)
         {
-            ManualResetEvent isContentLoadedResetEvent = new ManualResetEvent(false);
+            downloader.OnVideoInformationLoaded += (s, e) =>
+            {
+                totalNumVideos++;
+
+                Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => 
+                {
+                    this.videoList.AddVideoItem(e.Video);
+                    labNumVids.Text = "Total number of videos: " + totalNumVideos.ToString();
+                }));
+            };
+
             new Thread(() =>
             {
-                this.loadedVideos = downloader.LoadVideosFromChannel(channel);
-                isContentLoadedResetEvent.Set();
+                downloader.LoadVideosFromChannelNonBlocking(channel);
             }).Start();
-
-            isContentLoadedResetEvent.WaitOne();
-            PopulateUI();
         }
 
         public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)

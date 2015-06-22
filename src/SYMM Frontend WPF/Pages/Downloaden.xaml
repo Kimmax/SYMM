@@ -17,11 +17,6 @@
         </Grid.RowDefinitions>
         <local:VideoItemList x:Name="videoList" Margin="0"/>
         <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Right" Margin="0,3,16,3" VerticalAlignment="Center" Grid.Row="1" Height="26" Width="88"/>
-        <Border Margin="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Grid>
-                <TextBlock TextWrapping="Wrap" Text="Total Number of videos:" VerticalAlignment="Center" Margin="0,0,11,0" Height="16" TextAlignment="Right" HorizontalAlignment="Right" Width="131" MinWidth="131"/>
-                <TextBlock x:Name="labNumberVids" HorizontalAlignment="Left" Margin="136,0,-1,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Height="16"/>
-            </Grid>
-        </Border>
+        <TextBlock x:Name="labNumVids" TextWrapping="Wrap" Text="Total Number of videos:" VerticalAlignment="Center" Margin="16,0,0,0" Height="16" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="131" Grid.Row="1"/>
     </Grid>
 </Page>

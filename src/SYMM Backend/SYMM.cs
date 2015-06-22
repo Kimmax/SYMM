@@ -9,6 +9,9 @@ namespace SYMM_Backend
     {
         private readonly YoutubeAPIHandler YouTubeHandler;
 
+        public event EventHandler<VideoInformationLoadedEventArgs> OnVideoInformationLoaded;
+        public event EventHandler<AllVideoInformationLoadedEventArgs> OnAllVideoInformationLoaded;
+
         private readonly string _APIKey;
         public string APIKey
         {
@@ -28,6 +31,18 @@ namespace SYMM_Backend
 
         public void LoadVideosFromChannelNonBlocking(string channelName)
         {
+            YouTubeHandler.OnAllVideoInformationLoaded += (s, e) =>
+            {
+                if (OnAllVideoInformationLoaded != null)
+                    OnAllVideoInformationLoaded(this, e);
+            };
+
+            YouTubeHandler.OnVideoInformationLoaded += (s, e) =>
+            {
+                if (OnVideoInformationLoaded != null)
+                    OnVideoInformationLoaded(this, e);
+            };
+
             YouTubeHandler.LoadChannelVideos(channelName);
         }
     }
