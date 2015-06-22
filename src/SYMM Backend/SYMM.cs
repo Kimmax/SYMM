@@ -25,5 +25,10 @@ namespace SYMM_Backend
         {
             return YouTubeHandler.LoadChannelVideos(channelName);
         }
+
+        public void LoadVideosFromChannelNonBlocking(string channelName)
+        {
+            YouTubeHandler.LoadChannelVideos(channelName);
+        }
     }
 }

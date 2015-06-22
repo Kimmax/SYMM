@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using System;
 using System.Collections.Generic;
 
 namespace SYMM_Backend
@@ -29,6 +30,9 @@ namespace SYMM_Backend
             });
         }
 
+        public event EventHandler<VideoInformationLoadedEventArgs> OnVideoInformationLoaded;
+        public event EventHandler<AllVideoInformationLoadedEventArgs> OnAllVideoInformationLoaded;
+
         public List<YouTubeVideo> LoadChannelVideos(string channelName, List<YouTubeVideo> videos = null, string nextPageToken = null)
         {
             // Load the 'uploaded' playlist
@@ -47,18 +51,21 @@ namespace SYMM_Backend
 
             // Finnaly grab the video IDs
             if(videos == null)
-                videos = videos = new List<YouTubeVideo>();
+                videos = new List<YouTubeVideo>();
 
             // Populate video list
             foreach(PlaylistItem videoItem in playlistVideosRes.Items)
             {
-                videos.Add(new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.High.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position));
+                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.High.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
+                videos.Add(loadedVideo);
+                OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(loadedVideo));
             }
 
             // Check if we have more to grab
             if (!string.IsNullOrEmpty(playlistVideosRes.NextPageToken))
                 videos = LoadChannelVideos(channelName, videos, playlistVideosRes.NextPageToken);
 
+            OnAllVideoInformationLoaded(this, new AllVideoInformationLoadedEventArgs(videos));
             return videos;
         }
     }

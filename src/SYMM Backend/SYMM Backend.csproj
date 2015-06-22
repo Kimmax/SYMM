@@ -102,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Downloader.cs" />
+    <Compile Include="AllVideoInformationLoadedEventArgs.cs" />
+    <Compile Include="VideoInformationLoadedEventArgs.cs" />
     <Compile Include="VideoDownloadCompleteEventArgs.cs" />
     <Compile Include="ProgressEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
