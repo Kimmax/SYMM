@@ -32,8 +32,8 @@ namespace SYMM_Frontend_WPF
         {
             InitializeComponent();
             this._video = video;
-            this.txtTitle.Content = Video.VideoTitle;
-            this.txtChannel.Content = Video.ChannelTitle;
+            this.txtTitle.Text = Video.VideoTitle;
+            this.txtChannel.Text = Video.ChannelTitle;
 
             SetThumb(this.Video.ThumbURL);
         }

@@ -3,9 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SYMM_Frontend_WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Width="Auto" Height="Auto">
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Thickness x:Key="tbMargin">0,10,0,0</Thickness>
+    </UserControl.Resources>
+
     <ScrollViewer Margin="0">
-        <StackPanel x:Name="videoInfoPanel"/>
+        <StackPanel x:Name="videoInfoPanel">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type local:VideoInfoListItem}">
+                    <Setter Property="Margin" Value="{StaticResource tbMargin}"/>
+                </Style>
+            </StackPanel.Resources>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>

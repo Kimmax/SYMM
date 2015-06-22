@@ -3,18 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Width="719" Height="67.5">
-    <UserControl.Background>
-        <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0.4,0">
-            <GradientStop Color="Gray" Offset="1"/>
-            <GradientStop Color="White"/>
-        </LinearGradientBrush>
-    </UserControl.Background>
+             mc:Ignorable="d" d:DesignWidth="719" Height="90">
     <Grid>
-        <Image x:Name="imgThumb" HorizontalAlignment="Left" Height="67.5" VerticalAlignment="Top" Width="90" Source="thumbPlaceholder.png" Margin="0,0,0,-102"/>
-        <Label x:Name="txtTitle" Content="ThisIsARealCoolTitleBrah" HorizontalAlignment="Right" Margin="0,2,10,0" VerticalAlignment="Top"/>
-        <Label x:Name="txtLenght" Content="Not available" HorizontalAlignment="Right" Margin="0,22,10,0" VerticalAlignment="Top"/>
-        <Label x:Name="txtChannel" Content="SomeAwesomeChannel" HorizontalAlignment="Right" Margin="0,42,10,0" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="imgThumb" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="120" Source="thumbPlaceholder.png" Grid.Column="1"/>
+        <Border Margin="532,17,10,17" VerticalAlignment="Center" Grid.Column="1" Height="56">
+            <Grid>
+                <TextBlock x:Name="txtTitle" Text="ThisIsARealCoolTitleBrah" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <TextBlock x:Name="txtLenght" Text="Duration not available" HorizontalAlignment="Right" Margin="0,20,0,0" VerticalAlignment="Top"/>
+                <TextBlock x:Name="txtChannel" Text="SomeAwesomeChannel" HorizontalAlignment="Right" Margin="0,40,0,0" VerticalAlignment="Top"/>
+
+            </Grid>
+        </Border>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Height="20" Width="20" IsChecked="True"/>
 
     </Grid>
 </UserControl>

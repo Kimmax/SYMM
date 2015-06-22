@@ -31,12 +31,16 @@ namespace SYMM_Frontend_WPF.Pages
 
         List<YouTubeVideo> loadedVideos = new List<YouTubeVideo>();
         SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
+        int totalNumVideos = 0;
 
         void PopulateUI()
         {
+            totalNumVideos = 0;
             loadedVideos.ForEach(video =>
             {
                 this.videoList.AddVideoItem(video);
+                totalNumVideos++;
+                labNumberVids.Text = totalNumVideos.ToString();
             });
         }
 
