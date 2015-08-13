@@ -56,7 +56,7 @@ namespace SYMM_Backend
             // Populate video list
             foreach(PlaylistItem videoItem in playlistVideosRes.Items)
             {
-                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.High.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
+                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
                 videos.Add(loadedVideo);
 
                 if(OnVideoInformationLoaded != null)
