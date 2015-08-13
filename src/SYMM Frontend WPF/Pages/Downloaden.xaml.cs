@@ -87,5 +87,26 @@ namespace SYMM_Frontend_WPF.Pages
                 infoScroller.ScrollToVerticalOffset(infoScroller.ExtentHeight);
             }
         }
+
+        private void btnDownload_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            int maxSynDownloadingVideo = 2;
+            int workingVideos = 0;
+            string dest = @"D:\temp";
+
+            ManualResetEvent resetEvent = new ManualResetEvent(false);
+
+            Thread donloadWorker = new Thread(() =>
+            {
+                foreach (YouTubeVideo video in (videoInfoList.DataContext as VideoInfoListModel).RawVideoCollection)
+                {
+                    if (workingVideos >= maxSynDownloadingVideo)
+                        resetEvent.WaitOne();
+
+                    downloader.DownloadVideoNonBlocking(video, dest);
+                    workingVideos++;
+                }
+            });
+        }
     }
 }
