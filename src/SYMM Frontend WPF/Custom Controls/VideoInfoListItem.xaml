@@ -4,6 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" d:DesignWidth="719" Height="90">
+    <UserControl.Background>
+        <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="#FF3E3E42"/>
+            <GradientStop/>
+        </LinearGradientBrush>
+    </UserControl.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"/>
