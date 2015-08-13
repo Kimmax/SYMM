@@ -15,6 +15,7 @@ namespace SYMM_Frontend_WPF.Pages
     public partial class Downloaden : Page, IContent
     {
         SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
+        List<YouTubeVideo> rawVideoList = new List<YouTubeVideo>();
 
         public Downloaden()
         {
@@ -29,6 +30,7 @@ namespace SYMM_Frontend_WPF.Pages
             {
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    rawVideoList.Add(e.Video);
                     (videoInfoList.DataContext as VideoInfoListModel).AddVideo(e.Video);
                     (labNumVids.DataContext as NumberVideosModel).TotalNumberVideos++;
                 }), DispatcherPriority.Background);
@@ -96,9 +98,20 @@ namespace SYMM_Frontend_WPF.Pages
 
             ManualResetEvent resetEvent = new ManualResetEvent(false);
 
-            Thread donloadWorker = new Thread(() =>
+            downloader.OnVideoDownloadComplete += (dsender, deventargs) =>
             {
-                foreach (YouTubeVideo video in (videoInfoList.DataContext as VideoInfoListModel).RawVideoCollection)
+                resetEvent.Set();
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    rawVideoList.Remove(deventargs.Video);
+                    (videoInfoList.DataContext as VideoInfoListModel).RemoveVideo(deventargs.Video);
+                    (labNumVids.DataContext as NumberVideosModel).TotalNumberVideos--;
+                }), DispatcherPriority.Background);
+            };
+
+            Thread downloadWorker = new Thread(() =>
+            {
+                foreach (YouTubeVideo video in rawVideoList)
                 {
                     if (workingVideos >= maxSynDownloadingVideo)
                         resetEvent.WaitOne();
@@ -107,6 +120,8 @@ namespace SYMM_Frontend_WPF.Pages
                     workingVideos++;
                 }
             });
+
+            downloadWorker.Start();
         }
     }
 }
