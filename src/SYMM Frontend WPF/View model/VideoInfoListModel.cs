@@ -36,6 +36,12 @@ namespace SYMM_Frontend_WPF.View_model
             NotifyPropertyChanged("LoadedVideos");
         }
 
+        public void RemoveVideo(YouTubeVideo video)
+        {
+            LoadedVideos.Remove(LoadedVideos.First(x => x.Video == video));
+            RawVideoCollection.Remove(video);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propertyName)
