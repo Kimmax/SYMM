@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SYMM_Backend;
+using SYMM_Frontend_WPF.View_model;
 
 namespace SYMM_Frontend_WPF
 {
@@ -34,6 +35,8 @@ namespace SYMM_Frontend_WPF
             this._video = video;
             this.txtTitle.Text = Video.VideoTitle;
             this.txtChannel.Text = Video.ChannelTitle;
+
+            this.txtDownloadStatus.DataContext = new DownloadStatusModel();
 
             SetThumb(this.Video.ThumbURL);
         }

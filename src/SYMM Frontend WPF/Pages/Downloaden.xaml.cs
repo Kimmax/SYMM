@@ -98,14 +98,41 @@ namespace SYMM_Frontend_WPF.Pages
 
             ManualResetEvent resetEvent = new ManualResetEvent(false);
 
+            downloader.OnVideoDownloadProgressChanged += (dsender, deventargs) =>
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(deventargs.Video, "Downloading " + deventargs.ProgressPercentage.ToString("f2") + "%");
+                }), DispatcherPriority.Background);
+            };
+
+            downloader.OnVideoAudioExtractionProgressChanged += (dsender, deventargs) =>
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(deventargs.Video, "Extracting Audio " + deventargs.ProgressPercentage.ToString("f2") + "%");
+                }), DispatcherPriority.Background);
+            };
+
             downloader.OnVideoDownloadComplete += (dsender, deventargs) =>
             {
                 resetEvent.Set();
+                resetEvent.Reset();
+                workingVideos--;
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    rawVideoList.Remove(deventargs.Video);
-                    (videoInfoList.DataContext as VideoInfoListModel).RemoveVideo(deventargs.Video);
-                    (labNumVids.DataContext as NumberVideosModel).TotalNumberVideos--;
+                    (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(deventargs.Video, "Download complete");
+                }), DispatcherPriority.Background);
+            };
+
+            downloader.OnVideoDownloadFailed += (dsender, deventargs) =>
+            {
+                resetEvent.Set();
+                resetEvent.Reset();
+                workingVideos--;
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(deventargs.Video, "Download failed :(");
                 }), DispatcherPriority.Background);
             };
 
@@ -115,6 +142,11 @@ namespace SYMM_Frontend_WPF.Pages
                 {
                     if (workingVideos >= maxSynDownloadingVideo)
                         resetEvent.WaitOne();
+                   
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(video, "Starting download..");
+                    }), DispatcherPriority.Background);
 
                     downloader.DownloadVideoNonBlocking(video, dest);
                     workingVideos++;
