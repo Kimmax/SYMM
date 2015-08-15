@@ -107,6 +107,7 @@
     <Compile Include="Custom Controls\VideoInfoListItem.xaml.cs">
       <DependentUpon>VideoInfoListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View model\DownloadStatusModel.cs" />
     <Compile Include="View model\VideoInfoListModel.cs" />
     <Compile Include="View model\NumberVideosModel.cs" />
     <Page Include="Dialogs\CollectByNameDialog.xaml">
