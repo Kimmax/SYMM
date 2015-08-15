@@ -13,9 +13,10 @@ namespace SYMM_Backend
         public event EventHandler<VideoInformationLoadedEventArgs> OnVideoInformationLoaded;
         public event EventHandler<AllVideoInformationLoadedEventArgs> OnAllVideoInformationLoaded;
 
-        public event EventHandler<ProgressEventArgs> OnVideoDownloadProgressChanged;
-        public event EventHandler<ProgressEventArgs> OnVideoAudioExtractionProgressChanged;
+        public event EventHandler<DownloadProgressEventArgs> OnVideoDownloadProgressChanged;
+        public event EventHandler<DownloadProgressEventArgs> OnVideoAudioExtractionProgressChanged;
         public event EventHandler<VideoDownloadCompleteEventArgs> OnVideoDownloadComplete;
+        public event EventHandler<VideoDownloadFailedEventArgs> OnVideoDownloadFailed;
 
         private readonly string _APIKey;
         public string APIKey
@@ -70,6 +71,12 @@ namespace SYMM_Backend
             {
                 if (OnVideoDownloadComplete != null)
                     OnVideoDownloadComplete(this, e);
+            };
+
+            downloader.VideoDownloadFailed += (s, e) =>
+            {
+                if (OnVideoDownloadFailed != null)
+                    OnVideoDownloadFailed(this, e);
             };
 
             new Thread(() => { downloader.DownloadVideo(dest); }).Start();

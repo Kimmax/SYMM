@@ -2,11 +2,12 @@
 
 namespace SYMM_Backend
 {
-    public class ProgressEventArgs : EventArgs
+    public class DownloadProgressEventArgs : EventArgs
     {
-        public ProgressEventArgs(double progressPercentage)
+        public DownloadProgressEventArgs(double progressPercentage, YouTubeVideo video = null)
         {
             this.ProgressPercentage = progressPercentage;
+            this.Video = video;
         }
 
         /// <summary>
@@ -18,5 +19,7 @@ namespace SYMM_Backend
         /// Gets the progress percentage in a range from 0.0 to 100.0.
         /// </summary>
         public double ProgressPercentage { get; private set; }
+
+        public YouTubeVideo Video { get; set; }
     }
 }
