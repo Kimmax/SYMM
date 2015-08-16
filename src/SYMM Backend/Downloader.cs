@@ -59,7 +59,7 @@ namespace SYMM_Backend
                  * The first argument is the video where the audio should be extracted from.
                  * The second argument is the path to save the audio file.
                  */
-                var audioDownloader = new AudioDownloader(videoInfo, BuildSavePath(dest, videoInfo));
+                var audioDownloader = new AudioDownloader(videoInfo, dest + videoInfo.AudioExtension);
 
                 // Track the amount of progress we had the last time, so we can prevent multiple calls without change
                 int lastPrgs = -1;
@@ -107,11 +107,6 @@ namespace SYMM_Backend
                 if (this.VideoDownloadFailed != null)
                     this.VideoDownloadFailed(this, new VideoDownloadFailedEventArgs(this.Video, ex));
             }
-        }
-
-        public string BuildSavePath(string dest, VideoInfo videoInfo)
-        {
-            return Path.Combine(dest, videoInfo.Title + videoInfo.AudioExtension);
         }
     }
 }
