@@ -94,7 +94,7 @@ namespace SYMM_Frontend_WPF.Pages
         {
             int maxSynDownloadingVideo = 2;
             int workingVideos = 0;
-            string dest = @"D:\temp";
+            string dest = @"D:\Music\Youtube\Uploads by Trap City";
 
             ManualResetEvent resetEvent = new ManualResetEvent(false);
 
@@ -148,7 +148,18 @@ namespace SYMM_Frontend_WPF.Pages
                         (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(video, "Starting download..");
                     }), DispatcherPriority.Background);
 
-                    downloader.DownloadVideoNonBlocking(video, dest);
+                    string audioDestination = downloader.BuildSavePath(dest, video);
+
+                    if(downloader.SongExists(audioDestination))
+                    {
+                        Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            (videoInfoList.DataContext as VideoInfoListModel).UpdateVideoDownloadStatus(video, "Skipped: Already downloaded");
+                        }), DispatcherPriority.Background);
+                        continue;
+                    }
+
+                    downloader.DownloadVideoNonBlocking(video, audioDestination);
                     workingVideos++;
                 }
             });
