@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -80,6 +81,24 @@ namespace SYMM_Backend
             };
 
             new Thread(() => { downloader.DownloadVideo(dest); }).Start();
+        }
+
+        public string BuildSavePath(string dest, YouTubeVideo video)
+        {
+            return Path.Combine(dest, video.VideoTitle);
+        }
+
+        public bool SongExists(string dest)
+        {
+            string[] AudioExtensions = new string[] { ".aac", ".mp3", ".wav", ".m4a", ".wma", ".ogg" };
+            
+            foreach(string extension in AudioExtensions)
+            {
+                if(File.Exists(dest + extension))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
