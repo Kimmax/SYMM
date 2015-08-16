@@ -41,7 +41,7 @@ namespace SYMM_Backend
                 /*
             * We want the last extractable video with the highest audio quality.
             */
-                VideoInfo video = videoInfos
+                VideoInfo videoInfo = videoInfos
                     .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
                     .OrderBy(info => info.AudioBitrate)
                     .Last();
@@ -49,9 +49,9 @@ namespace SYMM_Backend
                 /*
                  * If the video has a decrypted signature, decipher it
                  */
-                if (video.RequiresDecryption)
+                if (videoInfo.RequiresDecryption)
                 {
-                    DownloadUrlResolver.DecryptDownloadUrl(video);
+                    DownloadUrlResolver.DecryptDownloadUrl(videoInfo);
                 }
 
                 /*
@@ -59,7 +59,7 @@ namespace SYMM_Backend
                  * The first argument is the video where the audio should be extracted from.
                  * The second argument is the path to save the audio file.
                  */
-                var audioDownloader = new AudioDownloader(video, Path.Combine(dest, video.Title + video.AudioExtension));
+                var audioDownloader = new AudioDownloader(videoInfo, BuildSavePath(dest, videoInfo));
 
                 // Track the amount of progress we had the last time, so we can prevent multiple calls without change
                 int lastPrgs = -1;
@@ -107,6 +107,11 @@ namespace SYMM_Backend
                 if (this.VideoDownloadFailed != null)
                     this.VideoDownloadFailed(this, new VideoDownloadFailedEventArgs(this.Video, ex));
             }
+        }
+
+        public string BuildSavePath(string dest, VideoInfo videoInfo)
+        {
+            return Path.Combine(dest, videoInfo.Title + videoInfo.AudioExtension);
         }
     }
 }
