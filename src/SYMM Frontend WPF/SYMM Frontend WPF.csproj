@@ -95,6 +95,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\CollectByURL.xaml.cs">
+      <DependentUpon>CollectByURL.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CollectByNameDialog.xaml.cs">
       <DependentUpon>CollectByNameDialog.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
     <Compile Include="View model\DownloadStatusModel.cs" />
     <Compile Include="View model\VideoInfoListModel.cs" />
     <Compile Include="View model\NumberVideosModel.cs" />
+    <Page Include="Dialogs\CollectByURL.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dialogs\CollectByNameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

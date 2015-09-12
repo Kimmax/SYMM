@@ -37,6 +37,16 @@ namespace SYMM_Frontend_WPF.Pages
             bs.LinkNavigator.Navigate(new Uri(url, UriKind.Relative), this);
         }
 
+        private void btnCollectByURL_Click(object sender, RoutedEventArgs e)
+        {
+            CollectByURL dialog = new CollectByURL();
+            var result = dialog.ShowDialog();
+
+            string url = "/Pages/Downloaden.xaml?method=url&extra=" + dialog.URL;
+            BBCodeBlock bs = new BBCodeBlock();
+            bs.LinkNavigator.Navigate(new Uri(url, UriKind.Relative), this);
+        }
+
         public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
         {
         }

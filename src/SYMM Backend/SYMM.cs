@@ -53,6 +53,23 @@ namespace SYMM_Backend
             YouTubeHandler.LoadChannelVideos(channelName);
         }
 
+        public void LoadVideosFromURL(string url)
+        {
+            YouTubeHandler.OnAllVideoInformationLoaded += (s, e) =>
+            {
+                if (OnAllVideoInformationLoaded != null)
+                    OnAllVideoInformationLoaded(this, e);
+            };
+
+            YouTubeHandler.OnVideoInformationLoaded += (s, e) =>
+            {
+                if (OnVideoInformationLoaded != null)
+                    OnVideoInformationLoaded(this, e);
+            };
+
+            YouTubeHandler.LoadURLVideos(url);
+        }
+
         public void DownloadVideoNonBlocking(YouTubeVideo video, string dest)
         {
             VideoDownloader downloader = new VideoDownloader(video);
@@ -85,7 +102,15 @@ namespace SYMM_Backend
 
         public string BuildSavePath(string dest, YouTubeVideo video)
         {
-            return Path.Combine(dest, video.VideoTitle);
+            try
+            {
+                return Path.Combine(dest, video.VideoTitle.Split('-')[1].Trim());
+            }
+            catch
+            {
+                return Path.Combine(dest, video.VideoTitle);
+            }
+           
         }
 
         public bool SongExists(string dest)

@@ -3,6 +3,7 @@ using SYMM_Backend;
 using SYMM_Frontend_WPF.View_model;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -42,12 +43,35 @@ namespace SYMM_Frontend_WPF.Pages
             }).Start();
         }
 
+        public void LoadByURL(string url)
+        {
+            downloader.OnVideoInformationLoaded += (s, e) =>
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    rawVideoList.Add(e.Video);
+                    (videoInfoList.DataContext as VideoInfoListModel).AddVideo(e.Video);
+                    (labNumVids.DataContext as NumberVideosModel).TotalNumberVideos++;
+                }), DispatcherPriority.Background);
+            };
+
+            new Thread(() =>
+            {
+                downloader.LoadVideosFromURL(url);
+            }).Start();
+        }
+
         public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
         {
             string method = e.Source.ToString().Split('?')[1].Split('&')[0].Split('=')[1];
+            string extra = Regex.Split(e.Source.ToString(), "&extra=")[1];
             if (method == "channelname")
             {
-                LoadByChannelName(e.Source.ToString().Split('?')[1].Split('&')[1].Split('=')[1]);
+                LoadByChannelName(extra);
+            }
+            else if (method == "url")
+            {
+                LoadByURL(extra);
             }
         }
 
@@ -92,7 +116,7 @@ namespace SYMM_Frontend_WPF.Pages
 
         private void btnDownload_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            int maxSynDownloadingVideo = 2;
+            int maxSynDownloadingVideo = 4;
             int workingVideos = 0;
             string dest = @"D:\Music\Youtube\Uploads by Trap City";
 

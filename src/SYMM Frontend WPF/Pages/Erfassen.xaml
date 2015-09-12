@@ -16,7 +16,7 @@
         <Border Margin="179,140,179,189" HorizontalAlignment="Center">
             <Grid MinWidth="210">
                 <Button x:Name="btnCollectByChanname" Content="By Channelname" HorizontalAlignment="Center" Margin="0,0,80,0" VerticalAlignment="Top" Width="130" Click="btnCollectByChanname_Click"/>
-                <Button Content="By URL" HorizontalAlignment="Center" Margin="136,0,0,0" VerticalAlignment="Top" Width="74"/>
+                <Button x:Name="btnCollectByURL" Content="By URL" HorizontalAlignment="Center" Margin="136,0,0,0" VerticalAlignment="Top" Width="74" Click="btnCollectByURL_Click"/>
 
             </Grid>
         </Border>
