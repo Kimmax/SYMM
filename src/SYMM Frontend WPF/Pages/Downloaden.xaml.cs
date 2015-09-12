@@ -15,7 +15,7 @@ namespace SYMM_Frontend_WPF.Pages
     /// </summary>
     public partial class Downloaden : Page, IContent
     {
-        SYMMHandler downloader = new SYMMHandler("AIzaSyAj82IqIloWupFnhn-hmmUo7iAkcj2xk3g");
+        SYMMHandler downloader = new SYMMHandler("INSERT-API-KEY-HERE");
         List<YouTubeVideo> rawVideoList = new List<YouTubeVideo>();
 
         public Downloaden()
