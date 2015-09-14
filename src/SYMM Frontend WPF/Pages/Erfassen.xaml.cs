@@ -27,22 +27,44 @@ namespace SYMM_Frontend_WPF.Pages
             InitializeComponent();
         }
 
+        /// <summary>
+        /// The user want's to download by channelname. Show the dialog for that.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCollectByChanname_Click(object sender, RoutedEventArgs e)
         {
+            // Init channelname dialog
             CollectByNameDialog dialog = new CollectByNameDialog();
+
+            // Show the diialog
             var result = dialog.ShowDialog();
 
+            // Setup to move to next page. Channelname gets passed by GET parameter
             string url = "/Pages/Downloaden.xaml?method=channelname&extra=" + dialog.ChannelName;
+
+            // HACK: Move to next page passing parameter
             BBCodeBlock bs = new BBCodeBlock();
             bs.LinkNavigator.Navigate(new Uri(url, UriKind.Relative), this);
         }
 
+        /// <summary>
+        /// The user want's to download by URL. Show the dialog for that.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCollectByURL_Click(object sender, RoutedEventArgs e)
         {
+            // Init url dialog
             CollectByURL dialog = new CollectByURL();
+
+            // Show the dialog
             var result = dialog.ShowDialog();
 
+            // Setup to move to next page. Channelname gets passed by GET parameter
             string url = "/Pages/Downloaden.xaml?method=url&extra=" + dialog.URL;
+
+            // HACK: Move to next page passing param
             BBCodeBlock bs = new BBCodeBlock();
             bs.LinkNavigator.Navigate(new Uri(url, UriKind.Relative), this);
         }
