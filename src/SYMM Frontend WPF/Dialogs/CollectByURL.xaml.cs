@@ -17,10 +17,11 @@ using System.Windows.Shapes;
 namespace SYMM_Frontend_WPF.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ModernDialog1.xaml
+    /// Interaction logic for URL Dialog
     /// </summary>
     public partial class CollectByURL : ModernDialog
     {
+        // Public getter for the textbox
         public string URL
         {
             get { return this.txtURL.Text; }

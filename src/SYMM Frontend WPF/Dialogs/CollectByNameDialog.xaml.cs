@@ -17,10 +17,11 @@ using System.Windows.Shapes;
 namespace SYMM_Frontend_WPF.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ModernDialog1.xaml
+    /// Interaction logic for Channelname dialog
     /// </summary>
     public partial class CollectByNameDialog : ModernDialog
     {
+        // Public getter for the textbox
         public string ChannelName
         {
             get { return this.txtChannelName.Text; }
