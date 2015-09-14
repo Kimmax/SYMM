@@ -21,36 +21,48 @@ namespace SYMM_Frontend_WPF
     /// </summary>
     public partial class VideoInfoListItem : UserControl
     {
+        // The vido object will be saved here
         private YouTubeVideo _video;
 
+        // Public reading, private setting
         public YouTubeVideo Video
         {
             get { return _video; }
             private set { _video = value; }
         }
 
+        // Constructor
         public VideoInfoListItem(YouTubeVideo video)
         {
             InitializeComponent();
+
+            // Set info fields on URL
             this._video = video;
             this.txtTitle.Text = Video.VideoTitle;
             this.txtChannel.Text = Video.ChannelTitle;
 
+            // Init databinding
             this.txtDownloadStatus.DataContext = new DownloadStatusModel();
 
+            // Receive and set thumbnail on GUI
             SetThumb(this.Video.ThumbURL);
         }
 
         public void SetThumb(string url)
         {
+            // New image
             var image = new Image();
+
+            // Origin: Googles server
             var fullFilePath = url;
 
+            // Receive image from web
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
             bitmap.EndInit();
 
+            // Annnd set it
             this.imgThumb.Source = bitmap;
         }
     }
