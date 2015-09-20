@@ -16,8 +16,8 @@ namespace SYMM_Frontend_WPF.Pages
     public partial class Downloaden : Page, IContent
     {
         // This initalizes the downloader, a referenze to the backend, used to do the actual work.
-        // You need to update the API Key, see Readme.md for info
-        SYMMHandler downloader = new SYMMHandler("INSERT-API-KEY-HERE");
+        // You need to update the API Key in the projects settings file, key "YTDataAPIv3Key"
+        SYMMHandler downloader = new SYMMHandler(Properties.Settings.Default.YTDataAPIv3Key);
 
         // Videolist used to store all videos in it's original class, before giving it to the view model
         // Mostly used for references

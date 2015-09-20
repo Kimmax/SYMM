@@ -34,5 +34,17 @@ namespace SYMM_Frontend_WPF.Properties {
                 this["savePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string YTDataAPIv3Key {
+            get {
+                return ((string)(this["YTDataAPIv3Key"]));
+            }
+            set {
+                this["YTDataAPIv3Key"] = value;
+            }
+        }
     }
 }
