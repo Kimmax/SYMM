@@ -20,6 +20,11 @@
 
             </Grid>
         </Border>
-
+        <Border Margin="10,60,10,17" Grid.Row="1" VerticalAlignment="Bottom">
+            <Grid>
+                <Label Content="Save path:" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtSPath" HorizontalAlignment="Left" Height="23" Margin="68,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="254"/>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -79,10 +79,23 @@ namespace SYMM_Frontend_WPF.Pages
 
         public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
         {
+            if(!String.IsNullOrEmpty(Properties.Settings.Default.savePath))
+            {
+                txtSPath.Text = Properties.Settings.Default.savePath;
+            }
+            else
+            {
+                txtSPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\SYMM";
+            }
         }
 
         public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
         {
+            if (!String.IsNullOrEmpty(txtSPath.Text))
+            {
+                Properties.Settings.Default.savePath = txtSPath.Text;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }
