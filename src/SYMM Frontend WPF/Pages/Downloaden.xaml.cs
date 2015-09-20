@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.IO;
 
 namespace SYMM_Frontend_WPF.Pages
 {
@@ -159,6 +160,10 @@ namespace SYMM_Frontend_WPF.Pages
 
             // Folder path the audio file gets saved at
             string dest = Properties.Settings.Default.savePath;
+
+            // Check if folder exist, create it if not
+            if(!Directory.Exists(dest))
+                Directory.CreateDirectory(dest);
 
             // Reset event controlling max Downloads. If workingVideos >= maxSynDownloadVideo the thread waits for this event to set
             ManualResetEvent resetEvent = new ManualResetEvent(false);
