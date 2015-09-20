@@ -219,8 +219,23 @@ namespace SYMM_Frontend_WPF.Pages
             Thread downloadWorker = new Thread(() =>
             {
                 // We want to download every video on this list wich is selected
-                foreach (YouTubeVideo video in rawVideoList.FindAll(video => (videoInfoList.DataContext as VideoInfoListModel).IsDownloadSelected(video)))
+                foreach (YouTubeVideo video in rawVideoList)
                 {
+                    // Video not selected to download -> skip
+                    ManualResetEvent waitForSelectStatus = new ManualResetEvent(false);
+                    bool isSelected = false;
+                    
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        if ((videoInfoList.DataContext as VideoInfoListModel).IsDownloadSelected(video))
+                            isSelected = true;
+                        waitForSelectStatus.Set();
+                    }), DispatcherPriority.Background);
+
+                    waitForSelectStatus.WaitOne();
+                    if (!isSelected)
+                        continue; 
+
                     // If all download slots are full, let the loop wait for them to get free
                     if (workingVideos >= maxSynDownloadingVideo)
                         resetEvent.WaitOne();
