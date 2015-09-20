@@ -31,6 +31,11 @@ namespace SYMM_Frontend_WPF
             private set { _video = value; }
         }
 
+        public bool? IsSelectedToDownload
+        {
+            get { return checkDownloadBox.IsChecked; }
+        }
+
         // Constructor
         public VideoInfoListItem(YouTubeVideo video)
         {

@@ -24,7 +24,7 @@
 
             </Grid>
         </Border>
-        <CheckBox Content="" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Height="20" Width="20" IsChecked="True"/>
+        <CheckBox x:Name="checkDownloadBox" Content="" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Height="20" Width="20" IsChecked="True"/>
         <TextBlock x:Name="txtDownloadStatus" Text="{Binding DownloadStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
     </Grid>

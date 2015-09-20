@@ -22,6 +22,11 @@ namespace SYMM_Frontend_WPF.View_model
             get { return _loadedVideos; }
         }
 
+        public bool IsDownloadSelected(YouTubeVideo video)
+        {
+            return (bool)(LoadedVideos.First(x => x.Video == video)).IsSelectedToDownload;
+        }
+
         public void UpdateVideoDownloadStatus(YouTubeVideo video, string status)
         {
             (LoadedVideos.First(x => x.Video == video).txtDownloadStatus.DataContext as DownloadStatusModel).DownloadStatus = status;

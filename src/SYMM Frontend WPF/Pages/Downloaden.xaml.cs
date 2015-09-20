@@ -218,8 +218,8 @@ namespace SYMM_Frontend_WPF.Pages
             // Here actual work gets done. Don't block the GUI, so new Thread
             Thread downloadWorker = new Thread(() =>
             {
-                // We want to download every video on this list
-                foreach (YouTubeVideo video in rawVideoList)
+                // We want to download every video on this list wich is selected
+                foreach (YouTubeVideo video in rawVideoList.FindAll(video => (videoInfoList.DataContext as VideoInfoListModel).IsDownloadSelected(video)))
                 {
                     // If all download slots are full, let the loop wait for them to get free
                     if (workingVideos >= maxSynDownloadingVideo)
