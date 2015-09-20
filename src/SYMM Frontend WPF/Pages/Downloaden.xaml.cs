@@ -158,7 +158,7 @@ namespace SYMM_Frontend_WPF.Pages
             int workingVideos = 0;
 
             // Folder path the audio file gets saved at
-            string dest = @"D:\Music\Youtube\Uploads by Trap City";
+            string dest = Properties.Settings.Default.savePath;
 
             // Reset event controlling max Downloads. If workingVideos >= maxSynDownloadVideo the thread waits for this event to set
             ManualResetEvent resetEvent = new ManualResetEvent(false);
