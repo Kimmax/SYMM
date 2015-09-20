@@ -34,6 +34,7 @@ namespace SYMM_Frontend_WPF
         public bool? IsSelectedToDownload
         {
             get { return checkDownloadBox.IsChecked; }
+            set { checkDownloadBox.IsChecked = value; }
         }
 
         // Constructor

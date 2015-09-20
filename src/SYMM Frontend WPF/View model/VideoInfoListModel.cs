@@ -22,6 +22,12 @@ namespace SYMM_Frontend_WPF.View_model
             get { return _loadedVideos; }
         }
 
+        public void SetAllDownloadCheckBoxStates(bool state)
+        {
+            foreach (VideoInfoListItem item in LoadedVideos)
+                item.IsSelectedToDownload = state;
+        }
+
         public bool IsDownloadSelected(YouTubeVideo video)
         {
             return (bool)(LoadedVideos.First(x => x.Video == video)).IsSelectedToDownload;

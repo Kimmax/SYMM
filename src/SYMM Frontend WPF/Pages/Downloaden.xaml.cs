@@ -258,5 +258,18 @@ namespace SYMM_Frontend_WPF.Pages
             // Thread is set, let's go!
             downloadWorker.Start();
         }
+
+        /// <summary>
+        /// Sets the checked property of all checkboxes in the infoscroller to it's own state
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        private void checkAllBox_StateChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                (videoInfoList.DataContext as VideoInfoListModel).SetAllDownloadCheckBoxStates((bool)checkAllBox.IsChecked);
+            }), DispatcherPriority.Background);
+        }
     }
 }

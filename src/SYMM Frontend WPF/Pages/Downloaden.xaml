@@ -16,7 +16,7 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Right" Margin="0,3,16,3" VerticalAlignment="Center" Grid.Row="1" Height="26" Click="btnDownload_Click"/>
-        <TextBlock Text="{Binding TotalNumberVideos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='Total number of videos: {0}'}" x:Name="labNumVids" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,0,0" Height="16" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="131" Grid.Row="1"/>
+        <TextBlock Text="{Binding TotalNumberVideos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='Total number of videos: {0}'}" x:Name="labNumVids" TextWrapping="Wrap" VerticalAlignment="Center" Margin="101,8,0,8" Height="16" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="131" Grid.Row="1"/>
         <ScrollViewer x:Name="infoScroller" Margin="0" ScrollChanged="infoScroller_ScrollChanged">
             <ItemsControl ItemsSource="{Binding LoadedVideos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="videoInfoList">
                 <ItemsControl.ItemsPanel>
@@ -26,5 +26,6 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
+        <CheckBox x:Name="checkAllBox" Content="Select all" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="checkAllBox_StateChanged" Unchecked="checkAllBox_StateChanged" IsChecked="True"/>
     </Grid>
 </Page>
