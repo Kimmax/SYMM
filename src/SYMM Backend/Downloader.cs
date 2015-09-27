@@ -44,6 +44,8 @@ namespace SYMM_Backend
                 VideoInfo videoInfo = videoInfos
                     .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
                     .OrderBy(info => info.AudioBitrate)
+                    .OrderBy(info => info.AdaptiveType == AdaptiveType.Audio)
+                    .OrderBy(info => info.AudioType == AudioType.Aac)
                     .Last();
 
                 /*
