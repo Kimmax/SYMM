@@ -153,7 +153,7 @@ namespace SYMM_Frontend_WPF.Pages
         private void btnDownload_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Defines how many videos are allowed to download at the same time
-            int maxSynDownloadingVideo = 4;
+            int maxSynDownloadingVideo = Properties.Settings.Default.maxSymWorkers;
 
             // Holds current number of downloading videos. Used to control maximum syncron downloads
             int workingVideos = 0;
