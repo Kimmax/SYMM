@@ -7,11 +7,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using System.Threading;
+using SYMM_Backend;
 
 namespace SYMM_Remote
 {
     class Proxy
     {
+        private SYMMHandler APIHandler = new SYMMHandler(Properties.Settings.Default.YTDataAPIv3Key);
         private List<APIClient> clients = new List<APIClient>();
         private TcpListener server;
         private IPAddress _serverAdress;
@@ -65,7 +67,7 @@ namespace SYMM_Remote
 
         private void AcceptClient(TcpClient client)
         {
-            APIClient apiClient = new APIClient(client);
+            APIClient apiClient = new APIClient(client, APIHandler);
             clients.Add(apiClient);
             apiClient.Run();
         }
