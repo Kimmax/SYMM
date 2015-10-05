@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Remote API Proxy", "SYMM Remote API Proxy.csproj", "{813083AC-26ED-47F9-8295-8ED7F0AC4663}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Remote API Proxy Server", "SYMM Remote API Proxy Server.csproj", "{813083AC-26ED-47F9-8295-8ED7F0AC4663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Backend", "..\SYMM Backend\SYMM Backend.csproj", "{48943E3B-8E97-4A65-BBE5-2C885CBAA136}"
 EndProject
