@@ -100,6 +100,36 @@ namespace SYMM_Backend
             new Thread(() => { downloader.DownloadVideo(dest); }).Start();
         }
 
+        public void DownloadVideo(YouTubeVideo video, string dest)
+        {
+            VideoDownloader downloader = new VideoDownloader(video);
+            downloader.DownloadProgressChanged += (s, e) =>
+            {
+                if (OnVideoDownloadProgressChanged != null)
+                    OnVideoDownloadProgressChanged(this, e);
+            };
+
+            downloader.AudioExtractionProgressChanged += (s, e) =>
+            {
+                if (OnVideoAudioExtractionProgressChanged != null)
+                    OnVideoAudioExtractionProgressChanged(this, e);
+            };
+
+            downloader.VideoDownloadComplete += (s, e) =>
+            {
+                if (OnVideoDownloadComplete != null)
+                    OnVideoDownloadComplete(this, e);
+            };
+
+            downloader.VideoDownloadFailed += (s, e) =>
+            {
+                if (OnVideoDownloadFailed != null)
+                    OnVideoDownloadFailed(this, e);
+            };
+
+            downloader.DownloadVideo(dest);
+        }
+
         public string BuildSavePath(string dest, YouTubeVideo video)
         {
             try
