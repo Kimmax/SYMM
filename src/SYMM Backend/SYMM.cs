@@ -70,7 +70,7 @@ namespace SYMM_Backend
             YouTubeHandler.LoadURLVideos(url);
         }
 
-        public void DownloadVideoNonBlocking(YouTubeVideo video, string dest)
+        public void DownloadVideoNonBlocking(YouTubeVideo video, string dest, bool extractAudio = true)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>
@@ -97,10 +97,10 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            new Thread(() => { downloader.DownloadVideo(dest); }).Start();
+            new Thread(() => { downloader.DownloadVideo(dest, extractAudio); }).Start();
         }
 
-        public void DownloadVideo(YouTubeVideo video, string dest)
+        public void DownloadVideo(YouTubeVideo video, string dest, bool extractAudio = true)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>
@@ -127,7 +127,7 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            downloader.DownloadVideo(dest);
+            downloader.DownloadVideo(dest, extractAudio);
         }
 
         public string BuildSavePath(string dest, YouTubeVideo video)
