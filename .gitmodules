@@ -4,4 +4,4 @@
 [submodule "src/SYMM Frontend Console"]
 	path = src/SYMM Frontend Console
 	url = https://github.com/di48l069/Flash-dl.git
-	branch = migrate-to-symm-backend
+	branch = master
