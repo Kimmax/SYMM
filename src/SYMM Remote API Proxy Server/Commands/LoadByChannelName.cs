@@ -15,7 +15,7 @@ namespace SYMM_Remote.Commands
             // Display information for one video when all information is loaded
             APIHandler.OnVideoInformationLoaded += (s, e) =>
             {
-                owner.
+                
             };
 
             new Thread(() =>
