@@ -57,7 +57,7 @@ namespace SYMM_Backend
             // Populate video list
             foreach(PlaylistItem videoItem in playlistVideosRes.Items)
             {
-                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
+                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default__.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
                 videos.Add(loadedVideo);
 
                 if(OnVideoInformationLoaded != null)
@@ -94,7 +94,7 @@ namespace SYMM_Backend
                 // Populate video list
                 foreach (PlaylistItem videoItem in playlistVideosRes.Items)
                 {
-                    YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
+                    YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default__.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
                     videos.Add(loadedVideo);
 
                     if (OnVideoInformationLoaded != null)
@@ -122,7 +122,7 @@ namespace SYMM_Backend
                     videos = new List<YouTubeVideo>();
 
                 Video videoItem = videoListResp.Items[0];
-                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Id, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default.Url, videoItem.Snippet.ChannelTitle, 0);
+                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Id, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default__.Url, videoItem.Snippet.ChannelTitle, 0);
                 videos.Add(loadedVideo);
 
                 if (OnVideoInformationLoaded != null)
