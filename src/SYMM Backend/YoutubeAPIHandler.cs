@@ -138,5 +138,11 @@ namespace SYMM_Backend
                 throw new ArgumentException("The URL specified is not a valid youtube playlist or watch url");
             }
         }
+
+        public void ResetEvents()
+        {
+            OnVideoInformationLoaded = null;
+            OnAllVideoInformationLoaded = null;
+        }
     }
 }

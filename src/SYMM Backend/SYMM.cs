@@ -70,7 +70,7 @@ namespace SYMM_Backend
             YouTubeHandler.LoadURLVideos(url);
         }
 
-        public void DownloadVideoNonBlocking(YouTubeVideo video, string dest, bool extractAudio = true)
+        public void DownloadVideoNonBlocking(YouTubeVideo video, SYMMSettings settings)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>
@@ -97,10 +97,10 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            new Thread(() => { downloader.DownloadVideo(dest, extractAudio); }).Start();
+            new Thread(() => { downloader.DownloadVideo(settings); }).Start();
         }
 
-        public void DownloadVideo(YouTubeVideo video, string dest, bool extractAudio = true)
+        public void DownloadVideo(YouTubeVideo video, SYMMSettings settings)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>
@@ -127,33 +127,24 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            downloader.DownloadVideo(dest, extractAudio);
+            downloader.DownloadVideo(settings);
+            downloader = null;
         }
 
-        public string BuildSavePath(string dest, YouTubeVideo video)
+        public string BuildPathSafeName(string name)
         {
-            try
-            {
-                return Path.Combine(dest, video.VideoTitle.Split('-')[1].Trim());
-            }
-            catch
-            {
-                return Path.Combine(dest, video.VideoTitle);
-            }
-           
+            return Path.GetInvalidFileNameChars().Aggregate(name, (current, c) => current.Replace(c, '-'));
         }
 
-        public bool SongExists(string dest)
+        public void ResetEvents()
         {
-            string[] AudioExtensions = new string[] { ".aac", ".mp3", ".wav", ".m4a", ".wma", ".ogg" };
-            
-            foreach(string extension in AudioExtensions)
-            {
-                if(File.Exists(dest + extension))
-                    return true;
-            }
-
-            return false;
+            OnVideoInformationLoaded = null;
+            OnAllVideoInformationLoaded = null;
+            OnVideoDownloadProgressChanged = null;
+            OnVideoAudioExtractionProgressChanged = null;
+            OnVideoDownloadComplete = null;
+            OnVideoDownloadFailed = null;
+            YouTubeHandler.ResetEvents();
         }
     }
 }

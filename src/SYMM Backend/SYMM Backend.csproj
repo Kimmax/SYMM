@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Downloader.cs" />
     <Compile Include="AllVideoInformationLoadedEventArgs.cs" />
+    <Compile Include="SYMMSettings.cs" />
     <Compile Include="VideoDownloadFailedEventArgs.cs" />
     <Compile Include="VideoInformationLoadedEventArgs.cs" />
     <Compile Include="VideoDownloadCompleteEventArgs.cs" />

@@ -26,7 +26,7 @@ namespace SYMM_Backend
             this.video = video;
         }
 
-        public void DownloadVideo(string dest, bool extractAudio)
+        public void DownloadVideo(SYMMSettings settings)
         {
             // Yotube url
             string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
@@ -37,7 +37,7 @@ namespace SYMM_Backend
              */
             try
             {
-                if (extractAudio)
+                if (settings.ExtractAudio)
                 {
                     IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
                     /*
@@ -47,7 +47,7 @@ namespace SYMM_Backend
                         .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
                         .OrderBy(info => info.AudioBitrate)
                         .OrderBy(info => info.AdaptiveType == AdaptiveType.Audio)
-                        .OrderBy(info => info.AudioType == AudioType.Aac)
+                        .OrderBy(info => info.AudioBitrate == settings.AudioBitrate)
                         .Last();
 
                     /*
@@ -63,7 +63,7 @@ namespace SYMM_Backend
                      * The first argument is the video where the audio should be extracted from.
                      * The second argument is the path to save the audio file.
                      */
-                    var audioDownloader = new AudioDownloader(videoInfo, dest + videoInfo.AudioExtension);
+                    var audioDownloader = new AudioDownloader(videoInfo, settings.SavePath + String.Format("\\{0}.{1}", settings.PathSafefileName, settings.AudioFormat.ToString()), settings.AudioFormat.ToString());
 
                     // Track the amount of progress we had the last time, so we can prevent multiple calls without change
                     int lastPrgs = -1;
@@ -115,7 +115,8 @@ namespace SYMM_Backend
                     VideoInfo videoInfo = videoInfos
                         .Where(info => info.AudioBitrate > 0 && info.Resolution > 0)
                         .OrderBy(info => info.AudioBitrate)
-                        .OrderBy(info => info.Resolution <= 1024)
+                        .OrderBy(info => info.Resolution)
+                        .OrderBy(info => info.Resolution == settings.VideoResolution)
                         .Last();
 
                     /*
@@ -131,7 +132,7 @@ namespace SYMM_Backend
                      * The first argument is the video where the audio should be extracted from.
                      * The second argument is the path to save the audio file.
                      */
-                    YoutubeExtractor.VideoDownloader videoDownloader = new YoutubeExtractor.VideoDownloader(videoInfo, dest + videoInfo.VideoExtension);
+                    YoutubeExtractor.VideoDownloader videoDownloader = new YoutubeExtractor.VideoDownloader(videoInfo, settings.SavePath + String.Format("\\{0}{1}", settings.PathSafefileName, videoInfo.VideoExtension));
 
                     // Track the amount of progress we had the last time, so we can prevent multiple calls without change
                     int lastPrgs = -1;
