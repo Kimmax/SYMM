@@ -14,6 +14,9 @@ namespace SYMM_Backend
         public event EventHandler<VideoDownloadCompleteEventArgs> VideoDownloadComplete;
         public event EventHandler<VideoDownloadFailedEventArgs> VideoDownloadFailed;
 
+        public event EventHandler<DownloadProgressEventArgs> StreamPositionChanged;
+        public event EventHandler<VideoDownloadCompleteEventArgs> StreamFinished;
+
         private readonly YouTubeVideo video;
 
         public YouTubeVideo Video
@@ -168,6 +171,48 @@ namespace SYMM_Backend
                 if (this.VideoDownloadFailed != null)
                     this.VideoDownloadFailed(this, new VideoDownloadFailedEventArgs(this.Video, ex));
             }
+        }
+
+        public void StreamAudio(SYMMSettings settings)
+        {
+            // Yotube url
+            string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
+            IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
+
+            VideoInfo videoInfo = videoInfos
+                .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
+                .OrderBy(info => info.AudioBitrate)
+                .OrderBy(info => info.AdaptiveType == AdaptiveType.Audio)
+                .OrderBy(info => info.AudioBitrate == settings.AudioBitrate)
+                .Last();
+
+            if (videoInfo.RequiresDecryption)
+            {
+                DownloadUrlResolver.DecryptDownloadUrl(videoInfo);
+            }
+
+            var aduioStream = new AduioStreamer(videoInfo);
+
+            // Track the amount of progress we had the last time, so we can prevent multiple calls without change
+            int lastPrgs = -1;
+            aduioStream.StreamPositionChanged += (sender, args) =>
+            {
+                if (lastPrgs != (int)args.ProgressPercentage)
+                {
+                    if (this.StreamPositionChanged != null)
+                        this.StreamPositionChanged(this, new DownloadProgressEventArgs(args.ProgressPercentage, this.video));
+
+                    lastPrgs = (int)args.ProgressPercentage;
+                }
+            };
+
+            aduioStream.StreamFinished += (sender, args) =>
+            {
+                if (this.StreamFinished != null)
+                    this.StreamFinished(this, new VideoDownloadCompleteEventArgs(this.Video));
+            };
+
+            aduioStream.Execute();
         }
     }
 }

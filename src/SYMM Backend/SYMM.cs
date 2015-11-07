@@ -19,6 +19,9 @@ namespace SYMM_Backend
         public event EventHandler<VideoDownloadCompleteEventArgs> OnVideoDownloadComplete;
         public event EventHandler<VideoDownloadFailedEventArgs> OnVideoDownloadFailed;
 
+        public event EventHandler<DownloadProgressEventArgs> OnStreamPostionChanged;
+        public event EventHandler<VideoDownloadCompleteEventArgs> OnStreamComplete;
+
         private readonly string _APIKey;
         public string APIKey
         {
@@ -131,6 +134,25 @@ namespace SYMM_Backend
             downloader = null;
         }
 
+        public void StreamAudio(YouTubeVideo video, SYMMSettings settings)
+        {
+            VideoDownloader downloader = new VideoDownloader(video);
+            downloader.StreamPositionChanged += (s, e) =>
+            {
+                if (OnStreamPostionChanged != null)
+                    OnStreamPostionChanged(this, e);
+            };
+
+            downloader.StreamFinished += (s, e) =>
+            {
+                if (OnStreamComplete != null)
+                    OnStreamComplete(this, e);
+            };
+
+            downloader.StreamAudio(settings);
+            downloader = null;
+        }
+
         public string BuildPathSafeName(string name)
         {
             return Path.GetInvalidFileNameChars().Aggregate(name, (current, c) => current.Replace(c, '-'));
@@ -144,6 +166,8 @@ namespace SYMM_Backend
             OnVideoAudioExtractionProgressChanged = null;
             OnVideoDownloadComplete = null;
             OnVideoDownloadFailed = null;
+            OnStreamComplete = null;
+            OnStreamPostionChanged = null;
             YouTubeHandler.ResetEvents();
         }
     }
