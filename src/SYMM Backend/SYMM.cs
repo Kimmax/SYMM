@@ -103,7 +103,7 @@ namespace SYMM_Backend
             new Thread(() => { downloader.Execute(settings); }).Start();
         }
 
-        public void DownloadVideo(YouTubeVideo video, SYMMSettings settings)
+        public void Execute(YouTubeVideo video, SYMMSettings settings)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>
@@ -130,13 +130,6 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            downloader.Execute(settings);
-            downloader = null;
-        }
-
-        public void StreamAudio(YouTubeVideo video, SYMMSettings settings)
-        {
-            VideoDownloader downloader = new VideoDownloader(video);
             downloader.StreamPositionChanged += (s, e) =>
             {
                 if (OnStreamPostionChanged != null)
