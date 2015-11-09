@@ -100,7 +100,7 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            new Thread(() => { downloader.DownloadVideo(settings); }).Start();
+            new Thread(() => { downloader.Execute(settings); }).Start();
         }
 
         public void DownloadVideo(YouTubeVideo video, SYMMSettings settings)
@@ -130,7 +130,7 @@ namespace SYMM_Backend
                     OnVideoDownloadFailed(this, e);
             };
 
-            downloader.DownloadVideo(settings);
+            downloader.Execute(settings);
             downloader = null;
         }
 
@@ -149,7 +149,7 @@ namespace SYMM_Backend
                     OnStreamComplete(this, e);
             };
 
-            downloader.StreamAudio(settings);
+            downloader.Execute(settings);
             downloader = null;
         }
 

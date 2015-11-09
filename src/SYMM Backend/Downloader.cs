@@ -29,23 +29,15 @@ namespace SYMM_Backend
             this.video = video;
         }
 
-        public void DownloadVideo(SYMMSettings settings)
+        public void Execute(SYMMSettings settings)
         {
-            // Yotube url
-            string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
-
-            /*
-             * Get the available video formats.
-             * We'll work with them in the video and audio download examples.
-             */
             try
             {
-                if (settings.ExtractAudio)
+                string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
+                IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
+
+                if (settings.Action == SYMMSettings.Actions.ExtractAudio)
                 {
-                    IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-                    /*
-                     * We want the last extractable video with the highest audio quality.
-                    */
                     VideoInfo videoInfo = videoInfos
                         .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
                         .OrderBy(info => info.AudioBitrate)
@@ -53,19 +45,11 @@ namespace SYMM_Backend
                         .OrderBy(info => info.AudioBitrate == settings.AudioBitrate)
                         .Last();
 
-                    /*
-                     * If the video has a decrypted signature, decipher it
-                     */
                     if (videoInfo.RequiresDecryption)
                     {
                         DownloadUrlResolver.DecryptDownloadUrl(videoInfo);
                     }
 
-                    /*
-                     * Create the audio downloader.
-                     * The first argument is the video where the audio should be extracted from.
-                     * The second argument is the path to save the audio file.
-                     */
                     var audioDownloader = new AudioDownloader(videoInfo, settings.SavePath + String.Format("\\{0}.{1}", settings.PathSafefileName, settings.AudioFormat.ToString()), settings.AudioFormat.ToString());
 
                     // Track the amount of progress we had the last time, so we can prevent multiple calls without change
@@ -109,12 +93,8 @@ namespace SYMM_Backend
                      */
                     audioDownloader.Execute();
                 }
-                else
+                else if(settings.Action == SYMMSettings.Actions.Download)
                 {
-                    IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-                    /*
-                * We want the highest video quality
-                */
                     VideoInfo videoInfo = videoInfos
                         .Where(info => info.AudioBitrate > 0 && info.Resolution > 0)
                         .OrderBy(info => info.AudioBitrate)
@@ -122,19 +102,11 @@ namespace SYMM_Backend
                         .OrderBy(info => info.Resolution == settings.VideoResolution)
                         .Last();
 
-                    /*
-                     * If the video has a decrypted signature, decipher it
-                     */
                     if (videoInfo.RequiresDecryption)
                     {
                         DownloadUrlResolver.DecryptDownloadUrl(videoInfo);
                     }
 
-                    /*
-                     * Create the audio downloader.
-                     * The first argument is the video where the audio should be extracted from.
-                     * The second argument is the path to save the audio file.
-                     */
                     YoutubeExtractor.VideoDownloader videoDownloader = new YoutubeExtractor.VideoDownloader(videoInfo, settings.SavePath + String.Format("\\{0}{1}", settings.PathSafefileName, videoInfo.VideoExtension));
 
                     // Track the amount of progress we had the last time, so we can prevent multiple calls without change
@@ -164,6 +136,43 @@ namespace SYMM_Backend
                      * For GUI applications note, that this method runs synchronously.
                      */
                     videoDownloader.Execute();
+                } 
+                else if(settings.Action == SYMMSettings.Actions.Stream)
+                {
+                    VideoInfo videoInfo = videoInfos
+                        .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
+                        .OrderBy(info => info.AudioBitrate)
+                        .OrderBy(info => info.AdaptiveType == AdaptiveType.Audio)
+                        .OrderBy(info => info.AudioBitrate == settings.AudioBitrate)
+                        .Last();
+
+                    if (videoInfo.RequiresDecryption)
+                    {
+                        DownloadUrlResolver.DecryptDownloadUrl(videoInfo);
+                    }
+
+                    var aduioStream = new AduioStreamer(videoInfo);
+
+                    // Track the amount of progress we had the last time, so we can prevent multiple calls without change
+                    int lastPrgs = -1;
+                    aduioStream.StreamPositionChanged += (sender, args) =>
+                    {
+                        if (lastPrgs != (int)args.ProgressPercentage)
+                        {
+                            if (this.StreamPositionChanged != null)
+                                this.StreamPositionChanged(this, new DownloadProgressEventArgs(args.ProgressPercentage, this.video));
+
+                            lastPrgs = (int)args.ProgressPercentage;
+                        }
+                    };
+
+                    aduioStream.StreamFinished += (sender, args) =>
+                    {
+                        if (this.StreamFinished != null)
+                            this.StreamFinished(this, new VideoDownloadCompleteEventArgs(this.Video));
+                    };
+
+                    aduioStream.Execute();
                 }
             }
             catch(YoutubeParseException ex)
@@ -171,48 +180,6 @@ namespace SYMM_Backend
                 if (this.VideoDownloadFailed != null)
                     this.VideoDownloadFailed(this, new VideoDownloadFailedEventArgs(this.Video, ex));
             }
-        }
-
-        public void StreamAudio(SYMMSettings settings)
-        {
-            // Yotube url
-            string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
-            IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-
-            VideoInfo videoInfo = videoInfos
-                .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
-                .OrderBy(info => info.AudioBitrate)
-                .OrderBy(info => info.AdaptiveType == AdaptiveType.Audio)
-                .OrderBy(info => info.AudioBitrate == settings.AudioBitrate)
-                .Last();
-
-            if (videoInfo.RequiresDecryption)
-            {
-                DownloadUrlResolver.DecryptDownloadUrl(videoInfo);
-            }
-
-            var aduioStream = new AduioStreamer(videoInfo);
-
-            // Track the amount of progress we had the last time, so we can prevent multiple calls without change
-            int lastPrgs = -1;
-            aduioStream.StreamPositionChanged += (sender, args) =>
-            {
-                if (lastPrgs != (int)args.ProgressPercentage)
-                {
-                    if (this.StreamPositionChanged != null)
-                        this.StreamPositionChanged(this, new DownloadProgressEventArgs(args.ProgressPercentage, this.video));
-
-                    lastPrgs = (int)args.ProgressPercentage;
-                }
-            };
-
-            aduioStream.StreamFinished += (sender, args) =>
-            {
-                if (this.StreamFinished != null)
-                    this.StreamFinished(this, new VideoDownloadCompleteEventArgs(this.Video));
-            };
-
-            aduioStream.Execute();
         }
     }
 }
