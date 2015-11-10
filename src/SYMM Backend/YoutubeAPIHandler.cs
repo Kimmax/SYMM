@@ -76,9 +76,12 @@ namespace SYMM_Backend
 
         public List<YouTubeVideo> LoadURLVideos(string url, List<YouTubeVideo> videos = null, string nextPageToken = null)
         {
-            if (url.Contains("playlist"))
+            if (url.Contains("list="))
             {
-                string playlistID = Regex.Split(url, @"playlist\?list=")[1];
+                string playlistID = Regex.Split(url, @"list=")[1];
+
+                if (playlistID.Contains("&"))
+                    playlistID = playlistID.Split('&')[0];
 
                 // Load Uploaded Playlist
                 PlaylistItemsResource.ListRequest playlistVideosReq = YouTubeService.PlaylistItems.List("snippet,id");
@@ -94,11 +97,19 @@ namespace SYMM_Backend
                 // Populate video list
                 foreach (PlaylistItem videoItem in playlistVideosRes.Items)
                 {
-                    YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default__.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
-                    videos.Add(loadedVideo);
+                    try
+                    {
+                        YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default__.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
+                        videos.Add(loadedVideo);
 
-                    if (OnVideoInformationLoaded != null)
-                        OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(loadedVideo));
+                        if (OnVideoInformationLoaded != null)
+                            OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(loadedVideo));
+                    }
+                    catch(NullReferenceException)
+                    {
+                        Console.WriteLine("Skipped one deleted video");
+                    }
+
                 }
 
                 // Check if we have more to grab
