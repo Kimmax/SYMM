@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace SYMM_Backend
 {
-    class YoutubeAPIHandler
+    public class YoutubeAPIHandler
     {
         private readonly string _APIKey;
         public string APIKey
