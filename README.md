@@ -1,7 +1,26 @@
-# SYMM
-Simple Youtube Music Manager
-SYMM is a project which is able to download all videos of a youtube channel or playlist (of course you can download a single video, if you're lame enough) and converts it to high quality audio afterwards using the power of ffmpeg.
+![Picture](res/logo.png?raw=true)  
+Simple YouTube music manager
 
-To be able to use your own build you have to register at https://console.developers.google.com and generate a "Browser Key" for the Youtube Data API v3. This key needs to be set at "SYMM/src/SYMM Frontend WPF/app.config", block "SYMM_Frontend_WPF.Properties.Settings", key "YTDataAPIv3Key". You can also use the settings editor of your IDE.
+**Welcome to the SYMM Base repo!**  
+You're here because Google brought you here, or you where just lurking around on Github, weren't you? Gotcha. Okay so let me tell what SYMM is.  
+SYMM is a project which is split in two parts: The frontends and a single backend.  
+This readme is about the _backend_. _(checkout the frontends under /src for more info about them)_  
+Let's say you would like to develope an application, which is able to 
+- stream the audio
+- extract the audio
+- download the video
 
-This projects aims to replace all these shitty "Youtube converters" with ship with tons of adware and sometimes with malware or aren't functional at all. In the future automatic synchronization for USB devices may be added, as well as id3 tag editing. Also keeping up with new uploads on specified channels would be cool.
+_of_  
+- a single video (If you're lame enough)
+- a playlist (You're getting cooler)
+- a whole channel (Now we're talking.) 
+  
+from YouTube.  
+With this libary you can, pretty easiliy. With the help of this libary it's just a matter of setting up a settings object, which stores all info about a download, as an example the URL of the video and some settings about quality and output format. After that you call _LoadVideosFromURL()_ passing the settings to fetch general data about the video, register some events so you can keep up with the actual download status and _Execute()_ to start downloading your video. If you which the video gets automaticlly converted to audio afterward with the power of _ffmpeg_.  
+**Done.**  
+  
+When you have developed an application you successfully created a new _Frontend_ for SYMM. Frontends are basically just the Interface in front of the actual logic. Just like you know it from web applications.  
+  
+## Contributing
+### Contributing general
+Fork this repo, do your work and open a pull request. Please only do not commit changes that mean something, e.g. don't commit a solution file because VisualStudio decided to change a version number. Pull request which contain such changes wont be accepted.  
