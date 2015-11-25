@@ -34,44 +34,14 @@ namespace SYMM_Backend
         public event EventHandler<VideoInformationLoadedEventArgs> OnVideoInformationLoaded;
         public event EventHandler<AllVideoInformationLoadedEventArgs> OnAllVideoInformationLoaded;
 
-        public List<YouTubeVideo> LoadChannelVideos(string channelName, List<YouTubeVideo> videos = null, string nextPageToken = null)
+        public string GetChannelPlaylist(string channelName)
         {
             // Load the 'uploaded' playlist
             ChannelsResource.ListRequest channelPlaylistIDReq = YouTubeService.Channels.List("contentDetails");
             channelPlaylistIDReq.ForUsername = channelName;
             ChannelListResponse channelPlaylistIDResp = channelPlaylistIDReq.Execute();
 
-            string channelUploadsPlaylistID = channelPlaylistIDResp.Items[0].ContentDetails.RelatedPlaylists.Uploads;
-
-            // Load Uploaded Playlist
-            PlaylistItemsResource.ListRequest playlistVideosReq = YouTubeService.PlaylistItems.List("snippet,id");
-            playlistVideosReq.PlaylistId = channelUploadsPlaylistID;
-            playlistVideosReq.PageToken = nextPageToken;
-            playlistVideosReq.MaxResults = 50;
-            PlaylistItemListResponse playlistVideosRes = playlistVideosReq.Execute();
-
-            // Finnaly grab the video IDs
-            if(videos == null)
-                videos = new List<YouTubeVideo>();
-
-            // Populate video list
-            foreach(PlaylistItem videoItem in playlistVideosRes.Items)
-            {
-                YouTubeVideo loadedVideo = new YouTubeVideo(videoItem.Snippet.Title, videoItem.Snippet.ResourceId.VideoId, videoItem.Snippet.Description, videoItem.Snippet.PublishedAt, videoItem.Snippet.Thumbnails.Default__.Url, videoItem.Snippet.ChannelTitle, videoItem.Snippet.Position);
-                videos.Add(loadedVideo);
-
-                if(OnVideoInformationLoaded != null)
-                    OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(loadedVideo));
-            }
-
-            // Check if we have more to grab
-            if (!string.IsNullOrEmpty(playlistVideosRes.NextPageToken))
-                videos = LoadChannelVideos(channelName, videos, playlistVideosRes.NextPageToken);
-
-            if(OnAllVideoInformationLoaded != null)
-                OnAllVideoInformationLoaded(this, new AllVideoInformationLoadedEventArgs(videos));
-
-            return videos;
+            return channelPlaylistIDResp.Items[0].ContentDetails.RelatedPlaylists.Uploads;
         }
 
         public List<YouTubeVideo> LoadURLVideos(SYMMSettings settings, List<YouTubeVideo> videos = null, string nextPageToken = null)

@@ -34,26 +34,9 @@ namespace SYMM_Backend
             this.YouTubeHandler = new YoutubeAPIHandler(this.APIKey);
         }
 
-        public List<YouTubeVideo> LoadVideosFromChannel(string channelName)
+        public string GetYoutubeChannelPlaylist(string channel)
         {
-            return YouTubeHandler.LoadChannelVideos(channelName);
-        }
-
-        public void LoadVideosFromChannelNonBlocking(string channelName)
-        {
-            YouTubeHandler.OnAllVideoInformationLoaded += (s, e) =>
-            {
-                if (OnAllVideoInformationLoaded != null)
-                    OnAllVideoInformationLoaded(this, e);
-            };
-
-            YouTubeHandler.OnVideoInformationLoaded += (s, e) =>
-            {
-                if (OnVideoInformationLoaded != null)
-                    OnVideoInformationLoaded(this, e);
-            };
-
-            YouTubeHandler.LoadChannelVideos(channelName);
+            return "https://www.youtube.com/list=" + YouTubeHandler.GetChannelPlaylist(channel);
         }
 
         public void LoadVideosFromURL(SYMMSettings settings)
