@@ -56,7 +56,7 @@ namespace SYMM_Backend
             YouTubeHandler.LoadChannelVideos(channelName);
         }
 
-        public void LoadVideosFromURL(string url)
+        public void LoadVideosFromURL(SYMMSettings settings)
         {
             YouTubeHandler.OnAllVideoInformationLoaded += (s, e) =>
             {
@@ -70,7 +70,7 @@ namespace SYMM_Backend
                     OnVideoInformationLoaded(this, e);
             };
 
-            YouTubeHandler.LoadURLVideos(url);
+            YouTubeHandler.LoadURLVideos(settings);
         }
 
         public void DownloadVideoNonBlocking(YouTubeVideo video, SYMMSettings settings)

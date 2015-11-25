@@ -74,11 +74,11 @@ namespace SYMM_Backend
             return videos;
         }
 
-        public List<YouTubeVideo> LoadURLVideos(string url, List<YouTubeVideo> videos = null, string nextPageToken = null)
+        public List<YouTubeVideo> LoadURLVideos(SYMMSettings settings, List<YouTubeVideo> videos = null, string nextPageToken = null)
         {
-            if (url.Contains("list="))
+            if (settings.UrlSpecs.IsPlaylist && settings.DownloadMode == SYMMSettings.Mode.All)
             {
-                string playlistID = Regex.Split(url, @"list=")[1];
+                string playlistID = Regex.Split(settings.DownloadURL, @"list=")[1];
 
                 if (playlistID.Contains("&"))
                     playlistID = playlistID.Split('&')[0];
@@ -114,16 +114,16 @@ namespace SYMM_Backend
 
                 // Check if we have more to grab
                 if (!string.IsNullOrEmpty(playlistVideosRes.NextPageToken))
-                    videos = LoadURLVideos(url, videos, playlistVideosRes.NextPageToken);
+                    videos = LoadURLVideos(settings, videos, playlistVideosRes.NextPageToken);
 
                 if (OnAllVideoInformationLoaded != null)
                     OnAllVideoInformationLoaded(this, new AllVideoInformationLoadedEventArgs(videos));
 
                 return videos;
             }
-            else if (url.Contains("watch?v="))
+            else if (settings.UrlSpecs.ContainsVideo)
             {
-                string watchID = Regex.Split(Regex.Split(url, @"v=")[1], "&")[0];
+                string watchID = Regex.Split(Regex.Split(settings.DownloadURL, @"v=")[1], "&")[0];
 
                 VideosResource.ListRequest videoListReq = YouTubeService.Videos.List("snippet, id");
                 videoListReq.Id = watchID;
