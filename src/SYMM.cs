@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ResolveList;
+using SYMM.Interfaces;
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace SYMM_Backend
 {
     public class SYMMHandler
     {
-        private readonly YoutubeAPIHandler YouTubeHandler;
+        private readonly YTPlaylistResolver YouTubeHandler;
 
         public event EventHandler<VideoInformationLoadedEventArgs> OnVideoInformationLoaded;
         public event EventHandler<AllVideoInformationLoadedEventArgs> OnAllVideoInformationLoaded;
@@ -31,7 +31,7 @@ namespace SYMM_Backend
         public SYMMHandler(string APIKey)
         {
             this._APIKey = APIKey;
-            this.YouTubeHandler = new YoutubeAPIHandler(this.APIKey);
+            this.YouTubeHandler = new YTPlaylistResolver("SYMM", this.APIKey);
         }
 
         public string GetYoutubeChannelPlaylist(string channel)
@@ -39,24 +39,24 @@ namespace SYMM_Backend
             return "https://www.youtube.com/list=" + YouTubeHandler.GetChannelPlaylist(channel);
         }
 
-        public void LoadVideosFromURL(SYMMSettings settings)
+        public void LoadVideosFromURL(ISYMMSettings settings)
         {
             YouTubeHandler.OnAllVideoInformationLoaded += (s, e) =>
             {
                 if (OnAllVideoInformationLoaded != null)
-                    OnAllVideoInformationLoaded(this, e);
+                    OnAllVideoInformationLoaded(this, new AllVideoInformationLoadedEventArgs(e.Videos));
             };
 
             YouTubeHandler.OnVideoInformationLoaded += (s, e) =>
             {
                 if (OnVideoInformationLoaded != null)
-                    OnVideoInformationLoaded(this, e);
+                    OnVideoInformationLoaded(this, new VideoInformationLoadedEventArgs(e.Video));
             };
 
             YouTubeHandler.LoadURLVideos(settings);
         }
 
-        public void DownloadVideoNonBlocking(YouTubeVideo video, SYMMSettings settings)
+        public void DownloadVideoNonBlocking(IYouTubeVideo video, ISYMMSettings settings)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>
@@ -86,7 +86,7 @@ namespace SYMM_Backend
             new Thread(() => { downloader.Execute(settings); }).Start();
         }
 
-        public void Execute(YouTubeVideo video, SYMMSettings settings)
+        public void Execute(IYouTubeVideo video, ISYMMSettings settings)
         {
             VideoDownloader downloader = new VideoDownloader(video);
             downloader.DownloadProgressChanged += (s, e) =>

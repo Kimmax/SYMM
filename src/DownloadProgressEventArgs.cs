@@ -1,10 +1,11 @@
 ﻿using System;
+using SYMM.Interfaces;
 
 namespace SYMM_Backend
 {
     public class DownloadProgressEventArgs : EventArgs
     {
-        public DownloadProgressEventArgs(double progressPercentage, YouTubeVideo video = null)
+        public DownloadProgressEventArgs(double progressPercentage, IYouTubeVideo video = null)
         {
             this.ProgressPercentage = progressPercentage;
             this.Video = video;
@@ -20,6 +21,6 @@ namespace SYMM_Backend
         /// </summary>
         public double ProgressPercentage { get; private set; }
 
-        public YouTubeVideo Video { get; set; }
+        public IYouTubeVideo Video { get; set; }
     }
 }

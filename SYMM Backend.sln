@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Backend", "SYMM Backend.csproj", "{7D709699-47EB-43DD-B195-F59A3D91C09A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeExtractor", "lib\YoutubeExtractor\YoutubeExtractor\YoutubeExtractor\YoutubeExtractor.csproj", "{ECDC127F-8DEF-4F99-8300-72C13597339D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeExtractor", "..\..\lib\YoutubeExtractor\YoutubeExtractor\YoutubeExtractor\YoutubeExtractor.csproj", "{ECDC127F-8DEF-4F99-8300-72C13597339D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYMM Backend", "src\SYMM Backend.csproj", "{48943E3B-8E97-4A65-BBE5-2C885CBAA136}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7D709699-47EB-43DD-B195-F59A3D91C09A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D709699-47EB-43DD-B195-F59A3D91C09A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D709699-47EB-43DD-B195-F59A3D91C09A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D709699-47EB-43DD-B195-F59A3D91C09A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECDC127F-8DEF-4F99-8300-72C13597339D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECDC127F-8DEF-4F99-8300-72C13597339D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECDC127F-8DEF-4F99-8300-72C13597339D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECDC127F-8DEF-4F99-8300-72C13597339D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48943E3B-8E97-4A65-BBE5-2C885CBAA136}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

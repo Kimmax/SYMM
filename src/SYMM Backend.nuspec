@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SYMM.Backend</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Kim-Maximilian Nürnberger</authors>
+    <owners>Kim-Maximilian Nürnberger</owners>
+    <description>Download and/or convert youtube videos with style</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>SYMM ResolveList YouTube Download Convert</tags>
+  </metadata>
+</package>

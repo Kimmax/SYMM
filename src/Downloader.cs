@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using YoutubeExtractor;
+using SYMM.Interfaces;
 
 namespace SYMM_Backend
 {
@@ -17,26 +18,26 @@ namespace SYMM_Backend
         public event EventHandler<DownloadProgressEventArgs> StreamPositionChanged;
         public event EventHandler<VideoDownloadCompleteEventArgs> StreamFinished;
 
-        private readonly YouTubeVideo video;
+        private readonly IYouTubeVideo video;
 
-        public YouTubeVideo Video
+        public IYouTubeVideo Video
         {
             get { return video; }
         }
 
-        public VideoDownloader(YouTubeVideo video)
+        public VideoDownloader(IYouTubeVideo video)
         {
             this.video = video;
         }
 
-        public void Execute(SYMMSettings settings)
+        public void Execute(ISYMMSettings settings)
         {
             try
             {
                 string link = "http://youtube.com/watch?v=" + Video.VideoWatchID;
                 IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
 
-                if (settings.Action == SYMMSettings.Actions.ExtractAudio)
+                if (settings.Action == Actions.ExtractAudio)
                 {
                     VideoInfo videoInfo = videoInfos
                         .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)
@@ -93,7 +94,7 @@ namespace SYMM_Backend
                      */
                     audioDownloader.Execute();
                 }
-                else if(settings.Action == SYMMSettings.Actions.Download)
+                else if(settings.Action == Actions.Download)
                 {
                     VideoInfo videoInfo = videoInfos
                         .Where(info => info.AudioBitrate > 0 && info.Resolution > 0)
@@ -137,7 +138,7 @@ namespace SYMM_Backend
                      */
                     videoDownloader.Execute();
                 } 
-                else if(settings.Action == SYMMSettings.Actions.Stream)
+                else if(settings.Action == Actions.Stream)
                 {
                     VideoInfo videoInfo = videoInfos
                         .Where(info => info.CanExtractAudio && info.AudioBitrate > 0)

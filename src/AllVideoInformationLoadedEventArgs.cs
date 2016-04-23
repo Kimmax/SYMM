@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ResolveList;
+using System;
 using System.Collections.Generic;
+using SYMM.Interfaces;
 
 namespace SYMM_Backend
 {
     public class AllVideoInformationLoadedEventArgs : EventArgs
     {
-        public AllVideoInformationLoadedEventArgs(List<YouTubeVideo> video)
+        public AllVideoInformationLoadedEventArgs(List<IYouTubeVideo> video)
         {
             this.Videos = video;
         }
@@ -13,6 +15,6 @@ namespace SYMM_Backend
         /// <summary>
         /// Returns the completed video object
         /// </summary>
-        public List<YouTubeVideo> Videos { get; private set; }
+        public List<IYouTubeVideo> Videos { get; private set; }
     }
 }

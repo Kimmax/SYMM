@@ -1,10 +1,11 @@
 ﻿using System;
+using SYMM.Interfaces;
 
 namespace SYMM_Backend
 {
     public class VideoDownloadFailedEventArgs : EventArgs
     {
-        public VideoDownloadFailedEventArgs(YouTubeVideo video, Exception innerException)
+        public VideoDownloadFailedEventArgs(IYouTubeVideo video, Exception innerException)
         {
             this.Video = video;
             this.InnerException = innerException;
@@ -13,7 +14,7 @@ namespace SYMM_Backend
         /// <summary>
         /// Returns the completed video object
         /// </summary>
-        public YouTubeVideo Video { get; private set; }
+        public IYouTubeVideo Video { get; private set; }
         public Exception InnerException { get; private set; }
     }
 }

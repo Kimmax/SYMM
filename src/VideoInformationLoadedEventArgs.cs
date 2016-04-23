@@ -1,10 +1,11 @@
 ﻿using System;
+using SYMM.Interfaces;
 
 namespace SYMM_Backend
 {
     public class VideoInformationLoadedEventArgs : EventArgs
     {
-        public VideoInformationLoadedEventArgs(YouTubeVideo video)
+        public VideoInformationLoadedEventArgs(IYouTubeVideo video)
         {
             this.Video = video;
         }
@@ -12,6 +13,6 @@ namespace SYMM_Backend
         /// <summary>
         /// Returns the completed video object
         /// </summary>
-        public YouTubeVideo Video { get; private set; }
+        public IYouTubeVideo Video { get; private set; }
     }
 }
